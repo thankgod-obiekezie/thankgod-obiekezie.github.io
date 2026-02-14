@@ -1,6 +1,6 @@
 # Thankgod Obiekezie Portfolio
 
-**Pharmacist & Data Analyst | SQL • Python • Power BI**  
+**Pharmacist & Data Analyst | Excel • SQL • Python • Power BI**  
 Portfolio showcasing data analytics projects, scripts, dashboards, and actionable insights.
 
 ---
