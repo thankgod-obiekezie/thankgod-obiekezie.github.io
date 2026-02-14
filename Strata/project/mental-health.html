@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Mental Health & Productivity Analysis</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background-color: #ebf4ff;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        h2 {
+            margin-top: 30px;
+            border-bottom: 2px solid #ccc;
+            padding-bottom: 5px;
+        }
+        ul {
+            margin: 10px 0 10px 20px;
+        }
+        p {
+            margin: 5px 0 10px 0;
+        }
+        code {
+            background-color: #ececec;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        .note {
+            font-style: italic;
+            color: #555;
+        }
+        .content-container {
+            max-width: 800px;       /* Adjust as needed */
+            margin: 0 auto;         /* Center it horizontally */
+            padding: 20px;          /* Optional spacing inside */
+            line-height: 1.6;       /* Easier reading */
+        }
+
+        .content-container p {
+            text-align: justify;    /* Makes lines uniform width */
+        }
+
+    </style>
+</head>
+<body>
+    <div class="content-container">
+        <h1>Employee Mental Health & Productivity Analysis</h1>
+        <p><strong>Date:</strong> February 2026</p>
+
+        <h2>Business Problem / Objective</h2>
+        <p>Many organizations face challenges in understanding how mental health impacts employee productivity. This project aims to:</p>
+        <ul>
+            <li>Assess the relationship between mental health risk levels, specific conditions, and employee productivity.</li>
+            <li>Evaluate the impact of lifestyle, social factors, and treatment-seeking on productivity among at-risk employees.</li>
+            <li>Analyze differences in productivity and mental health risk across gender and work environments.</li>
+        </ul>
+
+        <h2>Dataset Overview</h2>
+        <ul>
+            <li><strong>Data source:</strong> Internal employee mental health and productivity survey from kaggle</li>
+            <li><strong>Number of rows & columns:</strong> 5,868 employees; 15 columns</li>
+            <li><strong>Time period:</strong> Single cross-sectional survey</li>
+            <li><strong>Key columns:</strong> <code>age</code>, <code>gender</code>, <code>employment_status</code>, <code>work_environment</code>, <code>mental_health_history</code>, <code>seeks_treatment</code>, <code>stress_level</code>, <code>sleep_hours</code>, <code>physical_activity_days</code>, <code>depression_score</code>, <code>productivity_score</code>, <code>mental_health_risk</code>, <code>social_support_score</code></li>
+        </ul>
+        
+        <h2>Tools Used</h2>
+        <ul>
+            <li>SQL – data cleaning, feature engineering, and exploratory data analysis</li>
+            <li>PowerBI - Visualization</li>
+        </ul>
+
+        <h2>Data Cleaning & Preparation</h2>
+        <ul>
+            <li>Removed employees with non-employed statuses (<code>Student</code>, <code>Self-employed</code>, <code>Unemployed</code>).</li>
+            <li>Rounded <code>sleep_hours</code> and <code>productivity_score</code> to whole numbers.</li>
+            <li>Converted <code>Yes</code>/<code>No</code> responses in <code>mental_health_history</code> and <code>seeks_treatment</code> to binary (1/0).</li>
+            <li>Checked for null, blank, or duplicate entries; none were found.</li>
+            <li>Ensured consistent formatting of categorical variables (<code>gender</code>, <code>work_environment</code>, <code>mental_health_risk</code>).</li>
+        </ul>
+
+        <h2>Key Questions & Analysis</h2>
+        <ul>
+            <li><strong>Q1:</strong> How is mental health risk level associated with productivity?</li>
+            <li><strong>Q2:</strong> Among at-risk employees who are already underperforming, are lifestyle and social factors associated with differences in productivity?</li>
+            <li><strong>Q3:</strong> Do at-risk employees who report seeking treatment show different productivity patterns compared to those who do not?</li>
+            <li><strong>Q4:</strong> Which reported condition (stress, anxiety, depression) has the strongest association with productivity?</li>
+            <li><strong>Q5:</strong> Is work environment (remote, hybrid, on-site) associated with differences in productivity or mental health risk levels?</li>
+            <li><strong>Q6:</strong> Are there gender differences in mental health risk levels and productivity scores among employees?</li>
+            <li><strong>Q7:</strong> Do employees with a history of mental health conditions show different mental health risk levels or productivity scores compared to those without a history</li>
+        </ul>
+
+        <h2>Key Insights</h2>
+        <ul>
+            <li>33% of medium/high-risk employees scored below the productivity threshold (<70); 50% scored ≥70.</li>
+            <li>Sleep, physical activity, and social support showed minimal impact on productivity among at-risk employees.</li>
+            <li>40% of at-risk employees sought treatment; no substantial difference in productivity scores was observed.</li>
+            <li>Depression scores correlated with lower productivity; anxiety and stress levels showed no meaningful association.</li>
+            <li>Productivity scores were similar across remote, hybrid, and on-site employees. On-site employees were overrepresented in risk categories.</li>
+            <li>Productivity scores were comparable across genders; gender differences in risk were minimal.</li>
+            <li>Employees with prior mental health conditions did not differ significantly in productivity or risk levels compared to those without.</li>
+        </ul>
+
+        <h2>Recommendations</h2>
+        <ul>
+            <li>Prioritize interventions targeting employees with high depression scores.</li>
+            <li>Implement proactive mental health monitoring for on-site employees.</li>
+            <li>Consider holistic support programs rather than relying solely on lifestyle interventions.</li>
+            <li>Encourage treatment-seeking without assuming immediate productivity gains.</li>
+            <li>Use this analysis as baseline for longitudinal tracking to measure impact of mental health programs.</li>
+        </ul>
+
+        <h2>Visualization dashboard / SQL script</h2>
+        <p><strong>Dashboard Elements:</strong></p>
+        <ul>
+            <li>Mental health risk distribution by gender and work environment</li>
+            <li>Productivity score distribution across risk levels</li>
+            <li>Association of depression score with productivity</li>
+            <li>Lifestyle factor levels for at-risk employees</li>
+        </ul>
+
+        <p><strong>Links:</strong></p>
+        <ul>
+            <li><a href="https://github.com/thankgod-obiekezie/employee-mental-health-analysis/blob/main/mental_health.sql" target="_blank">SQL Script</a></li>
+            <li><a href="YOUR_POWERBI_LINK_HERE" target="_blank">Power BI Dashboard</a></li>
+        </ul>
+
+        <p><span class="note">Purpose: Provides HR and management teams with a quick overview of mental health risk, productivity, and areas for targeted interventions.</span></p>
+
+        <h2>Conclusion</h2>
+        <p>This analysis identified that depression is the primary mental health factor associated with productivity decline. Lifestyle factors and treatment-seeking behavior showed limited association. The insights enable data-driven decisions to target support for at-risk employees, particularly those with elevated depression scores and on-site work arrangements.</p>
+
+        <h2>Limitations</h2>
+        <ul>
+            <li>Cross-sectional data; cannot infer causality.</li>
+            <li>Lack of time-sequenced data to track changes in productivity following lifestyle changes or treatment.</li>
+            <li>Dataset does not include additional factors like workload, managerial support, or personal stressors that may affect productivity.</li>
+        </ul>
+    </div>
+</body>
+</html>
