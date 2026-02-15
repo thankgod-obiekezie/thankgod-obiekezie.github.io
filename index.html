@@ -148,23 +148,44 @@
 
 				<!-- Three -->
 					<section id="three">
-						<h2>Get In Touch</h2>
-						<p>I’m always happy to discuss opportunities, collaborations, or answer any questions about my work. Please feel free to reach out.</p>
-						<div class="row">
-							<div class="col-8 col-12-small">
-								<form method="post" action="mailto:obiekeziethankgod@gmail.com" enctype="text/plain">
-									<div class="row gtr-uniform gtr-50">
-										<div class="col-6 col-12-xsmall"><input type="text" name="name" id="name" placeholder="Name" /></div>
-										<div class="col-6 col-12-xsmall"><input type="email" name="email" id="email" placeholder="Email" /></div>
-										<div class="col-12"><textarea name="message" id="message" placeholder="Message" rows="4"></textarea></div>
+					<h2>Get In Touch</h2>
+					<p>I’m always happy to discuss opportunities, collaborations, or answer any questions about my work. Please feel free to reach out.</p>
+					
+					<div class="row">
+						<div class="col-8 col-12-small">
+							
+							<form method="post" action="https://formspree.io/f/mdalgyoz">
+								
+								<div class="row gtr-uniform gtr-50">
+									
+									<div class="col-6 col-12-xsmall">
+										<input type="text" name="name" id="name" placeholder="Name" required />
 									</div>
-								</form>
-								<ul class="actions">
-									<li><input type="submit" value="Send Message" /></li>
-								</ul>
-							</div>
+									
+									<div class="col-6 col-12-xsmall">
+										<input type="email" name="email" id="email" placeholder="Email" required />
+									</div>
+									
+									<div class="col-12">
+										<textarea name="message" id="message" placeholder="Message" rows="4" required></textarea>
+									</div>
+
+									<!-- MOVE BUTTON INSIDE FORM -->
+									<div class="col-12">
+										<ul class="actions">
+											<li>
+												<input type="submit" value="Send Message" />
+											</li>
+										</ul>
+									</div>
+
+								</div>
+								
+							</form>
+
 						</div>
-					</section>
+					</div>
+				</section>
 
 				<!-- Four -->
 				<!--
@@ -510,4 +531,5 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 			<script src="assets/js/main.js"></script>
 
 	</body>
+
 </html>
