@@ -80,13 +80,21 @@
             <li>PowerBI - Visualization</li>
         </ul>
 
-        <h2>Data Cleaning & Preparation</h2>
+        <h2>Data Cleaning and Preparation</h2>
         <ul>
             <li>Removed employees with non-employed statuses (<code>Student</code>, <code>Self-employed</code>, <code>Unemployed</code>).</li>
             <li>Rounded <code>sleep_hours</code> and <code>productivity_score</code> to whole numbers.</li>
             <li>Converted <code>Yes</code>/<code>No</code> responses in <code>mental_health_history</code> and <code>seeks_treatment</code> to binary (1/0).</li>
             <li>Checked for null, blank, or duplicate entries; none were found.</li>
             <li>Ensured consistent formatting of categorical variables (<code>gender</code>, <code>work_environment</code>, <code>mental_health_risk</code>).</li>
+        </ul>
+
+        <h2>Data Modeling and DAX</h2>
+        <ul>
+            <li>Created calculated columns for treatment status, productivity status – segmenting medium/high-risk employees with productivity score (&lt;70) into Affected, and Not Affected (≥70), while low-risk employees were classified as N/A and excluded from focused visuals.</li>
+            <li>Built dynamic measures for employee counts, productivity score statistics.</li>
+            <li>Implemented Pearson correlation manually in DAX (covariance ÷ standard deviations) to assess relationships between mental health factors, conditions and productivity.</li>
+            <li>Developed supporting dimension tables to structure correlation visuals.</li>
         </ul>
 
         <h2>Key Questions & Analysis</h2>
@@ -100,12 +108,31 @@
             <li><strong>Q7:</strong> Do employees with a history of mental health conditions show different mental health risk levels or productivity scores compared to those without a history</li>
         </ul>
 
+        <h2>Visualization dashboard / SQL script</h2>
+        <p><strong>Dashboard Elements:</strong></p>
+        <ul>
+            <li>KPI Summary Cards: Total employees and risk-level breakdown counts (High, Medium, Low).</li>
+            <li>Risk vs Productivity: Stacked column comparing Affected vs Not Affected across mental health risk.</li>
+            <li>Correlation Analysis: Pearson correlations of stress, anxiety, and depression with productivity.</li>
+            <li>Treatment-Seeking Impact: Productivity comparison between employees who sought treatment vs those who didn't.</li>
+            <li>Correlation Analysis: Pearson correlations of sleep, social support, and physical activity days with productivity.</li>
+            <li>Mental Health History Matrices: Productivity stats and current risk distribution by mental health history.</li>
+            <li>Interactive Slicers: Filters for gender and work environment across all visuals.</li>
+        </ul>
+
+        <p><strong>Links:</strong></p>
+        <ul>
+            <li><a href="https://github.com/thankgod-obiekezie/employee-mental-health-analysis/blob/main/mental_health.sql" target="_blank">SQL Script</a></li>
+            <li><a href="https://github.com/thankgod-obiekezie/employee-mental-health-analysis-dashboard" target="_blank">Download Power BI Report</a></li>
+            <li><a href="https://i.postimg.cc/c6Gqc3c1/mental-health-analysis-dashboard-page.jpg" target="_blank">View Dashboard Screenshot</a></li>
+        </ul>
+
         <h2>Key Insights</h2>
         <ul>
-            <li>33% of medium/high-risk employees scored below the productivity threshold (<70); 50% scored ≥70.</li>
-            <li>Sleep, physical activity, and social support showed minimal impact on productivity among at-risk employees.</li>
+            <li>33% of medium/high-risk employees scored below the productivity threshold (&lt;70); 50% scored ≥70.</li>
+            <li>Sleep, physical activity days, and social support showed little to no impact on productivity among at-risk employees.</li>
             <li>40% of at-risk employees sought treatment; no substantial difference in productivity scores was observed.</li>
-            <li>Depression scores correlated with lower productivity; anxiety and stress levels showed no meaningful association.</li>
+            <li>Higher depression scores correlated with lower productivity; anxiety and stress levels showed no meaningful association.</li>
             <li>Productivity scores were similar across remote, hybrid, and on-site employees. On-site employees were overrepresented in risk categories.</li>
             <li>Productivity scores were comparable across genders; gender differences in risk were minimal.</li>
             <li>Employees with prior mental health conditions did not differ significantly in productivity or risk levels compared to those without.</li>
@@ -118,21 +145,6 @@
             <li>Consider holistic support programs rather than relying solely on lifestyle interventions.</li>
             <li>Encourage treatment-seeking without assuming immediate productivity gains.</li>
             <li>Use this analysis as baseline for longitudinal tracking to measure impact of mental health programs.</li>
-        </ul>
-
-        <h2>Visualization dashboard / SQL script</h2>
-        <p><strong>Dashboard Elements:</strong></p>
-        <ul>
-            <li>Mental health risk distribution by gender and work environment</li>
-            <li>Productivity score distribution across risk levels</li>
-            <li>Association of depression score with productivity</li>
-            <li>Lifestyle factor levels for at-risk employees</li>
-        </ul>
-
-        <p><strong>Links:</strong></p>
-        <ul>
-            <li><a href="https://github.com/thankgod-obiekezie/employee-mental-health-analysis/blob/main/mental_health.sql" target="_blank">SQL Script</a></li>
-            <li><a href="https://github.com/thankgod-obiekezie/employee-mental-health-analysis-dashboard" target="_blank">Power BI Dashboard</a></li>
         </ul>
 
         <p><span class="note">Purpose: Provides HR and management teams with a quick overview of mental health risk, productivity, and areas for targeted interventions.</span></p>
@@ -149,4 +161,3 @@
     </div>
 </body>
 </html>
-
