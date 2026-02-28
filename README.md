@@ -10,7 +10,7 @@ Portfolio showcasing data analytics projects, scripts, dashboards, and actionabl
 ### 1. Employee Mental Health & Productivity Analysis
 - Analysis of employee mental health risk and productivity patterns.
 - Explored associations with lifestyle factors, treatment-seeking behavior, and workplace environment.
-- [View Project]() 
+- [View Project](thankgod-obiekezie.github.io) 
 
 *More projects coming soon…*
 
