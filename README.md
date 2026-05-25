@@ -17,7 +17,7 @@ Portfolio showcasing data analytics projects, scripts, dashboards, and actionabl
 ---
 
 ## Skills & Tools
-- **Data Analysis & Programming:** Python (Pandas, NumPy, Matplotlip), SQL, Excel/Google Sheets  
+- **Data Analysis & Programming:** Python (Pandas, Matplotlip), SQL, Excel/Google Sheets  
 - **Visualization & Reporting:** Power BI dashboards, charts, actionable insights  
 - **Data Preparation:** Cleaning, feature engineering, exploratory analysis  
 
