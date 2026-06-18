@@ -1,163 +1,874 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Employee Mental Health & Productivity Analysis</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            background-color: #ebf4ff;
-            color: #333;
-            margin: 0;
-            padding: 20px;
-        }
-        h1, h2, h3 {
-            color: #2c3e50;
-        }
-        h1 {
-            text-align: center;
-            margin-bottom: 10px;
-        }
-        h2 {
-            margin-top: 30px;
-            border-bottom: 2px solid #ccc;
-            padding-bottom: 5px;
-        }
-        ul {
-            margin: 10px 0 10px 20px;
-        }
-        p {
-            margin: 5px 0 10px 0;
-        }
-        code {
-            background-color: #ececec;
-            padding: 2px 4px;
-            border-radius: 3px;
-        }
-        .note {
-            font-style: italic;
-            color: #555;
-        }
-        .content-container {
-            max-width: 800px;       /* Adjust as needed */
-            margin: 0 auto;         /* Center it horizontally */
-            padding: 20px;          /* Optional spacing inside */
-            line-height: 1.6;       /* Easier reading */
-        }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <title>Employee Mental Health & Productivity — Thankgod Obiekezie</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-        .content-container p {
-            text-align: justify;    /* Makes lines uniform width */
-        }
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
 
-    </style>
+    :root {
+      --navy:      #0B1F3A;
+      --navy-mid:  #132840;
+      --teal:      #0E9F8E;
+      --teal-lt:   #E8F4F2;
+      --teal-mid:  #0cc4ae;
+      --offwhite:  #F0F4F8;
+      --slate:     #8FA3B1;
+      --text:      #1A2E42;
+      --text-soft: #4A6070;
+      --border:    #D6E4EE;
+
+      --font-display: 'DM Serif Display', Georgia, serif;
+      --font-body:    'Inter', system-ui, sans-serif;
+      --font-mono:    'JetBrains Mono', 'Courier New', monospace;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--offwhite);
+      color: var(--text);
+      line-height: 1.65;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(11, 31, 58, 0.97);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(14, 159, 142, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2.5rem;
+      height: 56px;
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      color: #fff;
+      letter-spacing: 0.01em;
+      text-decoration: none;
+    }
+
+    .nav-logo span { color: var(--teal); }
+
+    .nav-back {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--slate);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: color 0.2s;
+    }
+
+    .nav-back:hover { color: var(--teal); }
+
+    /* ── PROJECT HERO ── */
+    .proj-hero {
+      background: var(--navy);
+      padding: 7rem 2.5rem 4rem;
+    }
+
+    .proj-hero-inner {
+      max-width: 780px;
+      margin: 0 auto;
+    }
+
+    .breadcrumb {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--slate);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .breadcrumb a { color: var(--slate); text-decoration: none; transition: color 0.2s; }
+    .breadcrumb a:hover { color: var(--teal); }
+    .breadcrumb span { color: var(--teal); }
+
+    .proj-tags {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.2rem;
+    }
+
+    .proj-tag {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.22rem 0.7rem;
+      border-radius: 3px;
+      background: rgba(14,159,142,0.15);
+      color: var(--teal);
+      border: 1px solid rgba(14,159,142,0.3);
+    }
+
+    .proj-hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      color: #fff;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+
+    .proj-hero-sub {
+      font-size: 1rem;
+      color: #b8ccd8;
+      max-width: 560px;
+      line-height: 1.75;
+      margin-bottom: 2rem;
+    }
+
+    .proj-meta-strip {
+      display: flex;
+      gap: 2.5rem;
+      flex-wrap: wrap;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding-top: 1.5rem;
+    }
+
+    .proj-meta-item { display: flex; flex-direction: column; gap: 0.2rem; }
+
+    .pmi-label {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      color: var(--teal);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .pmi-value {
+      font-size: 0.85rem;
+      color: #d0dde8;
+    }
+
+    /* ── CONTENT AREA ── */
+    .proj-body {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 0 2.5rem;
+    }
+
+    /* ── SECTION BLOCKS ── */
+    .proj-section {
+      padding: 3.5rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .proj-section:last-child { border-bottom: none; }
+
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--teal);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .section-label::before {
+      content: '';
+      display: inline-block;
+      width: 16px;
+      height: 1px;
+      background: var(--teal);
+    }
+
+    .section-heading {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      color: var(--navy);
+      margin-bottom: 1.2rem;
+      line-height: 1.2;
+    }
+
+    .prose {
+      font-size: 0.93rem;
+      color: var(--text-soft);
+      line-height: 1.8;
+      margin-bottom: 0.9rem;
+    }
+
+    .prose strong { color: var(--text); font-weight: 600; }
+
+    /* ── OBJECTIVE CARDS ── */
+    .obj-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 1.2rem;
+    }
+
+    .obj-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      padding: 1.2rem 1.3rem;
+      border-top: 2px solid var(--teal);
+    }
+
+    .obj-num {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--teal);
+      letter-spacing: 0.1em;
+      margin-bottom: 0.5rem;
+    }
+
+    .obj-text {
+      font-size: 0.83rem;
+      color: var(--text-soft);
+      line-height: 1.55;
+    }
+
+    /* ── DATASET STATS ── */
+    .dataset-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .dataset-stat {
+      background: var(--navy);
+      border-radius: 5px;
+      padding: 1.2rem 1.4rem;
+      text-align: center;
+    }
+
+    .ds-num {
+      font-family: var(--font-display);
+      font-size: 1.9rem;
+      color: var(--teal);
+      line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+
+    .ds-label {
+      font-size: 0.75rem;
+      color: var(--slate);
+      line-height: 1.4;
+    }
+
+    /* ── CODE CHIP COLUMNS ── */
+    .chip-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-top: 0.8rem;
+    }
+
+    .chip {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      background: var(--offwhite);
+      border: 1px solid var(--border);
+      color: var(--text-soft);
+      padding: 0.22rem 0.6rem;
+      border-radius: 3px;
+    }
+
+    /* ── TOOLS USED ── */
+    .tools-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .tool-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      padding: 1.1rem 1.3rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.8rem;
+    }
+
+    .tool-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 4px;
+      background: var(--teal-lt);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--teal);
+      font-weight: 500;
+    }
+
+    .tool-info-name {
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: var(--navy);
+      margin-bottom: 0.2rem;
+    }
+
+    .tool-info-desc {
+      font-size: 0.78rem;
+      color: var(--text-soft);
+      line-height: 1.45;
+    }
+
+    /* ── QUESTIONS ── */
+    .questions-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    .q-item {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      padding: 0.9rem 1.1rem;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      transition: border-color 0.2s;
+    }
+
+    .q-item:hover { border-color: rgba(14,159,142,0.35); }
+
+    .q-num {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--teal);
+      min-width: 24px;
+      padding-top: 0.1rem;
+    }
+
+    .q-text {
+      font-size: 0.87rem;
+      color: var(--text-soft);
+      line-height: 1.55;
+    }
+
+    /* ── INSIGHTS ── */
+    .insights-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    .insight-item {
+      display: flex;
+      gap: 1rem;
+      padding: 1rem 1.2rem;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--teal);
+      border-radius: 0 5px 5px 0;
+    }
+
+    .insight-text {
+      font-size: 0.88rem;
+      color: var(--text-soft);
+      line-height: 1.6;
+    }
+
+    .insight-text strong { color: var(--text); font-weight: 600; }
+
+    /* ── RECOMMENDATIONS ── */
+    .rec-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.9rem;
+      margin-top: 1rem;
+    }
+
+    .rec-card {
+      background: var(--teal-lt);
+      border: 1px solid rgba(14,159,142,0.2);
+      border-radius: 5px;
+      padding: 1.1rem 1.3rem;
+    }
+
+    .rec-icon {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .rec-text {
+      font-size: 0.83rem;
+      color: var(--text);
+      line-height: 1.55;
+    }
+
+    /* ── DASHBOARD LINKS ── */
+    .links-row {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-top: 1.2rem;
+    }
+
+    .btn {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.7rem 1.4rem;
+      border-radius: 3px;
+      text-decoration: none;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .btn-primary {
+      background: var(--teal);
+      color: #fff;
+      border: 1.5px solid var(--teal);
+    }
+
+    .btn-primary:hover { background: var(--teal-mid); border-color: var(--teal-mid); }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-soft);
+      border: 1.5px solid var(--border);
+    }
+
+    .btn-ghost:hover { border-color: var(--teal); color: var(--teal); }
+
+    /* ── LIMITATIONS ── */
+    .limit-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      margin-top: 1rem;
+    }
+
+    .limit-item {
+      display: flex;
+      gap: 0.8rem;
+      font-size: 0.87rem;
+      color: var(--text-soft);
+      line-height: 1.6;
+      padding: 0.75rem 1rem;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 5px;
+    }
+
+    .limit-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--slate);
+      margin-top: 0.45rem;
+      flex-shrink: 0;
+    }
+
+    /* ── CONCLUSION BLOCK ── */
+    .conclusion-block {
+      background: var(--navy);
+      border-radius: 6px;
+      padding: 2rem 2.2rem;
+      margin-top: 1.2rem;
+    }
+
+    .conclusion-block p {
+      font-size: 0.95rem;
+      color: #b8ccd8;
+      line-height: 1.8;
+    }
+
+    .conclusion-block strong { color: #fff; font-weight: 500; }
+
+    /* ── CLEANING STEPS ── */
+    .steps-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      margin-top: 1rem;
+    }
+
+    .step-item {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      font-size: 0.87rem;
+      color: var(--text-soft);
+      line-height: 1.6;
+    }
+
+    .step-num {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--teal);
+      background: var(--teal-lt);
+      border: 1px solid rgba(14,159,142,0.25);
+      padding: 0.15rem 0.45rem;
+      border-radius: 3px;
+      flex-shrink: 0;
+      margin-top: 0.15rem;
+    }
+
+    code {
+      font-family: var(--font-mono);
+      font-size: 0.78em;
+      background: var(--offwhite);
+      border: 1px solid var(--border);
+      padding: 0.1rem 0.35rem;
+      border-radius: 3px;
+      color: var(--navy);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #071526;
+      padding: 1.8rem 2.5rem;
+      text-align: center;
+      margin-top: 4rem;
+    }
+
+    .footer-text {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: #3d5468;
+      letter-spacing: 0.08em;
+    }
+
+    /* ── FADE IN ── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+
+    .fade-in.visible { opacity: 1; transform: none; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      nav { padding: 0 1.25rem; }
+      .proj-hero, .proj-body { padding-left: 1.25rem; padding-right: 1.25rem; }
+      .obj-grid, .dataset-grid, .rec-grid, .tools-row { grid-template-columns: 1fr; }
+      .proj-meta-strip { gap: 1.5rem; }
+    }
+  </style>
 </head>
+
 <body>
-    <div class="content-container">
-        <h1>Employee Mental Health & Productivity Analysis</h1>
-        <p><strong>Date:</strong> February 2026</p>
 
-        <h2>Business Problem / Objective</h2>
-        <p>Many organizations face challenges in understanding how mental health impacts employee productivity. This project aims to:</p>
-        <ul>
-            <li>Assess the relationship between mental health risk levels, specific conditions, and employee productivity.</li>
-            <li>Evaluate the impact of lifestyle, social factors, and treatment-seeking on productivity among at-risk employees.</li>
-            <li>Analyze differences in productivity and mental health risk across gender and work environments.</li>
-        </ul>
+  <!-- NAV -->
+  <nav>
+    <a href="../index.html" class="nav-logo">Tk</a>
+    <a href="../index.html#projects" class="nav-back">← All Projects</a>
+  </nav>
 
-        <h2>Dataset Overview</h2>
-        <ul>
-            <li><strong>Data source:</strong> Internal employee mental health and productivity survey from kaggle</li>
-            <li><strong>Number of rows & columns:</strong> 5,868 employees; 15 columns</li>
-            <li><strong>Time period:</strong> Single cross-sectional survey</li>
-            <li><strong>Key columns:</strong> <code>age</code>, <code>gender</code>, <code>employment_status</code>, <code>work_environment</code>, <code>mental_health_history</code>, <code>seeks_treatment</code>, <code>stress_level</code>, <code>sleep_hours</code>, <code>physical_activity_days</code>, <code>depression_score</code>, <code>productivity_score</code>, <code>mental_health_risk</code>, <code>social_support_score</code></li>
-        </ul>
-        
-        <h2>Tools Used</h2>
-        <ul>
-            <li>SQL – data cleaning, feature engineering, and exploratory data analysis</li>
-            <li>PowerBI - Visualization</li>
-        </ul>
-
-        <h2>Data Cleaning and Preparation</h2>
-        <ul>
-            <li>Removed employees with non-employed statuses (<code>Student</code>, <code>Self-employed</code>, <code>Unemployed</code>).</li>
-            <li>Rounded <code>sleep_hours</code> and <code>productivity_score</code> to whole numbers.</li>
-            <li>Converted <code>Yes</code>/<code>No</code> responses in <code>mental_health_history</code> and <code>seeks_treatment</code> to binary (1/0).</li>
-            <li>Checked for null, blank, or duplicate entries; none were found.</li>
-            <li>Ensured consistent formatting of categorical variables (<code>gender</code>, <code>work_environment</code>, <code>mental_health_risk</code>).</li>
-        </ul>
-
-        <h2>Data Modeling and DAX</h2>
-        <ul>
-            <li>Created calculated columns for treatment status, productivity status – segmenting medium/high-risk employees with productivity score (&lt;70) into Affected, and Not Affected (≥70), while low-risk employees were classified as N/A and excluded from focused visuals.</li>
-            <li>Built dynamic measures for employee counts, productivity score statistics.</li>
-            <li>Implemented Pearson correlation manually in DAX (covariance ÷ standard deviations) to assess relationships between mental health factors, conditions and productivity.</li>
-            <li>Developed supporting dimension tables to structure correlation visuals.</li>
-        </ul>
-
-        <h2>Key Questions & Analysis</h2>
-        <ul>
-            <li><strong>Q1:</strong> How is mental health risk level associated with productivity?</li>
-            <li><strong>Q2:</strong> Among at-risk employees who are already underperforming, are lifestyle and social factors associated with differences in productivity?</li>
-            <li><strong>Q3:</strong> Do at-risk employees who report seeking treatment show different productivity patterns compared to those who do not?</li>
-            <li><strong>Q4:</strong> Which reported condition (stress, anxiety, depression) has the strongest association with productivity?</li>
-            <li><strong>Q5:</strong> Is work environment (remote, hybrid, on-site) associated with differences in productivity or mental health risk levels?</li>
-            <li><strong>Q6:</strong> Are there gender differences in mental health risk levels and productivity scores among employees?</li>
-            <li><strong>Q7:</strong> Do employees with a history of mental health conditions show different mental health risk levels or productivity scores compared to those without a history</li>
-        </ul>
-
-        <h2>Visualization dashboard / SQL script</h2>
-        <p><strong>Dashboard Elements:</strong></p>
-        <ul>
-            <li>KPI Summary Cards: Total employees and risk-level breakdown counts (High, Medium, Low).</li>
-            <li>Risk vs Productivity: Stacked column comparing Affected vs Not Affected across mental health risk.</li>
-            <li>Correlation Analysis: Pearson correlations of stress, anxiety, and depression with productivity.</li>
-            <li>Treatment-Seeking Impact: Productivity comparison between employees who sought treatment vs those who didn't.</li>
-            <li>Correlation Analysis: Pearson correlations of sleep, social support, and physical activity days with productivity.</li>
-            <li>Mental Health History Matrices: Productivity stats and current risk distribution by mental health history.</li>
-            <li>Interactive Slicers: Filters for gender and work environment across all visuals.</li>
-        </ul>
-
-        <p><strong>Links:</strong></p>
-        <ul>
-            <li><a href="https://github.com/thankgod-obiekezie/employee-mental-health-analysis/blob/main/mental_health.sql" target="_blank">SQL Script</a></li>
-            <li><a href="https://github.com/thankgod-obiekezie/employee-mental-health-analysis-dashboard" target="_blank">Power BI Report</a></li>
-        </ul>
-
-        <h2>Key Insights</h2>
-        <ul>
-            <li>33% of medium/high-risk employees scored below the productivity threshold (&lt;70); 50% scored ≥70.</li>
-            <li>Sleep, physical activity days, and social support showed little to no impact on productivity among at-risk employees.</li>
-            <li>40% of at-risk employees sought treatment; no substantial difference in productivity scores was observed.</li>
-            <li>Higher depression scores correlated with lower productivity; anxiety and stress levels showed no meaningful association.</li>
-            <li>Productivity scores were similar across remote, hybrid, and on-site employees. On-site employees were overrepresented in risk categories.</li>
-            <li>Productivity scores were comparable across genders; gender differences in risk were minimal.</li>
-            <li>Employees with prior mental health conditions did not differ significantly in productivity or risk levels compared to those without.</li>
-        </ul>
-
-        <h2>Recommendations</h2>
-        <ul>
-            <li>Prioritize interventions targeting employees with high depression scores.</li>
-            <li>Implement proactive mental health monitoring for on-site employees.</li>
-            <li>Consider holistic support programs rather than relying solely on lifestyle interventions.</li>
-            <li>Encourage treatment-seeking without assuming immediate productivity gains.</li>
-            <li>Use this analysis as baseline for longitudinal tracking to measure impact of mental health programs.</li>
-        </ul>
-
-        <p><span class="note">Purpose: Provides HR and management teams with a quick overview of mental health risk, productivity, and areas for targeted interventions.</span></p>
-
-        <h2>Conclusion</h2>
-        <p>This analysis identified that depression is the primary mental health factor associated with productivity decline. Lifestyle factors and treatment-seeking behavior showed limited association. The insights enable data-driven decisions to target support for at-risk employees, particularly those with elevated depression scores and on-site work arrangements.</p>
-
-        <h2>Limitations</h2>
-        <ul>
-            <li>Cross-sectional data; cannot infer causality.</li>
-            <li>Lack of time-sequenced data to track changes in productivity following lifestyle changes or treatment.</li>
-            <li>Dataset does not include additional factors like workload, managerial support, or personal stressors that may affect productivity.</li>
-        </ul>
+  <!-- PROJECT HERO -->
+  <div class="proj-hero">
+    <div class="proj-hero-inner">
+      <div class="breadcrumb">
+        <a href="../index.html">Home</a>
+        <span>/</span>
+        Projects
+        <span>/</span>
+        Mental Health Analysis
+      </div>
+      <div class="proj-tags">
+        <span class="proj-tag">SQL</span>
+        <span class="proj-tag">Power BI</span>
+        <span class="proj-tag">Workplace Health</span>
+        <span class="proj-tag">EDA</span>
+      </div>
+      <h1 class="proj-hero-title">Employee Mental Health<br>&amp; Productivity Analysis</h1>
+      <p class="proj-hero-sub">
+        Investigating how mental health risk levels, clinical conditions, and lifestyle factors shape employee productivity — using SQL-driven analysis and interactive Power BI dashboards.
+      </p>
+      <div class="proj-meta-strip">
+        <div class="proj-meta-item">
+          <span class="pmi-label">Date</span>
+          <span class="pmi-value">February 2026</span>
+        </div>
+        <div class="proj-meta-item">
+          <span class="pmi-label">Dataset</span>
+          <span class="pmi-value">5,868 employees · 15 columns</span>
+        </div>
+        <div class="proj-meta-item">
+          <span class="pmi-label">Source</span>
+          <span class="pmi-value">Kaggle (survey data)</span>
+        </div>
+        <div class="proj-meta-item">
+          <span class="pmi-label">Tools</span>
+          <span class="pmi-value">SQL · Power BI · DAX</span>
+        </div>
+      </div>
     </div>
+  </div>
+
+  <!-- BODY -->
+  <div class="proj-body">
+
+    <!-- OBJECTIVES -->
+    <div class="proj-section fade-in">
+      <div class="section-label">Overview</div>
+      <h2 class="section-heading">Business problem</h2>
+      <p class="prose">
+        Many organisations struggle to quantify how mental health affects workforce output. This project moves beyond anecdotal understanding to surface <strong>data-driven patterns</strong> in the relationship between risk, clinical conditions, and productivity — giving HR and management teams actionable ground truth.
+      </p>
+      <div class="obj-grid">
+        <div class="obj-card">
+          <div class="obj-num">01</div>
+          <div class="obj-text">Assess how mental health risk levels and specific conditions relate to employee productivity scores</div>
+        </div>
+        <div class="obj-card">
+          <div class="obj-num">02</div>
+          <div class="obj-text">Evaluate the impact of lifestyle and social factors on at-risk, underperforming employees</div>
+        </div>
+        <div class="obj-card">
+          <div class="obj-num">03</div>
+          <div class="obj-text">Analyse productivity differences across gender, work environment, and treatment-seeking behaviour</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DATASET -->
+    <div class="proj-section fade-in">
+      <div class="section-label">Data</div>
+      <h2 class="section-heading">Dataset overview</h2>
+      <div class="dataset-grid">
+        <div class="dataset-stat">
+          <div class="ds-num">5,868</div>
+          <div class="ds-label">Employee records</div>
+        </div>
+        <div class="dataset-stat">
+          <div class="ds-num">15</div>
+          <div class="ds-label">Feature columns</div>
+        </div>
+        <div class="dataset-stat">
+          <div class="ds-num">1×</div>
+          <div class="ds-label">Cross-sectional survey</div>
+        </div>
+      </div>
+      <p class="prose">Key columns used in analysis:</p>
+      <div class="chip-wrap">
+        <span class="chip">age</span>
+        <span class="chip">gender</span>
+        <span class="chip">employment_status</span>
+        <span class="chip">work_environment</span>
+        <span class="chip">mental_health_history</span>
+        <span class="chip">seeks_treatment</span>
+        <span class="chip">stress_level</span>
+        <span class="chip">sleep_hours</span>
+        <span class="chip">physical_activity_days</span>
+        <span class="chip">depression_score</span>
+        <span class="chip">productivity_score</span>
+        <span class="chip">mental_health_risk</span>
+        <span class="chip">social_support_score</span>
+      </div>
+    </div>
+
+    <!-- TOOLS -->
+    <div class="proj-section fade-in">
+      <div class="section-label">Stack</div>
+      <h2 class="section-heading">Tools used</h2>
+      <div class="tools-row">
+        <div class="tool-card">
+          <div class="tool-icon">SQL</div>
+          <div>
+            <div class="tool-info-name">SQL</div>
+            <div class="tool-info-desc">Data cleaning, feature engineering, and all exploratory analysis</div>
+          </div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-icon">PBI</div>
+          <div>
+            <div class="tool-info-name">Power BI + DAX</div>
+            <div class="tool-info-desc">Interactive dashboard, custom Pearson correlation measures, KPI cards</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CLEANING -->
+    <div class="proj-section fade-in">
+      <div class="section-label">Preparation</div>
+      <h2 class="section-heading">Data cleaning &amp; modelling</h2>
+      <p class="prose">The raw dataset required several cleaning and engineering steps before analysis:</p>
+      <div class="steps-list">
+        <div class="step-item">
+          <span class="step-num">01</span>
+          Removed non-employed statuses — <code>Student</code>, <code>Self-employed</code>, <code>Unemployed</code> — to focus on workplace-relevant records
+        </div>
+        <div class="step-item">
+          <span class="step-num">02</span>
+          Rounded <code>sleep_hours</code> and <code>productivity_score</code> to whole numbers for cleaner aggregation
+        </div>
+        <div class="step-item">
+          <span class="step-num">03</span>
+          Converted <code>Yes</code>/<code>No</code> fields (<code>mental_health_history</code>, <code>seeks_treatment</code>) to binary 1/0 flags
+        </div>
+        <div class="step-item">
+          <span class="step-num">04</span>
+          Verified zero null, blank, or duplicate entries across all columns
+        </div>
+        <div class="step-item">
+          <span class="step-num">05</span>
+          Standardised formatting across all categorical variables — <code>gender</code>, <code>work_environment</code>, <code>mental_health_risk</code>
+        </div>
+      </div>
+      <p class="prose" style="margin-top:1.4rem;">In Power BI, calculated columns segmented medium/high-risk employees with productivity &lt;70 as <strong>Affected</strong> vs ≥70 as <strong>Not Affected</strong>. Pearson correlation was implemented manually in DAX (covariance ÷ standard deviations) to assess factor relationships with productivity.</p>
+    </div>
+
+    <!-- QUESTIONS -->
+    <div class="proj-section fade-in">
+      <div class="section-label">Analysis</div>
+      <h2 class="section-heading">Key questions explored</h2>
+      <div class="questions-list">
+        <div class="q-item"><span class="q-num">Q1</span><span class="q-text">How is mental health risk level associated with productivity?</span></div>
+        <div class="q-item"><span class="q-num">Q2</span><span class="q-text">Among at-risk, underperforming employees — are lifestyle and social factors associated with productivity differences?</span></div>
+        <div class="q-item"><span class="q-num">Q3</span><span class="q-text">Do at-risk employees who seek treatment show different productivity patterns vs those who don't?</span></div>
+        <div class="q-item"><span class="q-num">Q4</span><span class="q-text">Which condition — stress, anxiety, or depression — has the strongest association with productivity decline?</span></div>
+        <div class="q-item"><span class="q-num">Q5</span><span class="q-text">Is work environment (remote, hybrid, on-site) associated with differences in productivity or risk distribution?</span></div>
+        <div class="q-item"><span class="q-num">Q6</span><span class="q-text">Are there gender differences in mental health risk levels and productivity scores?</span></div>
+        <div class="q-item"><span class="q-num">Q7</span><span class="q-text">Do employees with a prior mental health history show different risk levels or productivity scores?</span></div>
+      </div>
+    </div>
+
+    <!-- DASHBOARD -->
+    <div class="proj-section fade-in">
+      <div class="section-label">Output</div>
+      <h2 class="section-heading">Dashboard &amp; scripts</h2>
+      <p class="prose">The Power BI dashboard surfaces findings through layered, interactive visuals — with slicers for gender and work environment applied globally across all report pages.</p>
+      <div class="steps-list" style="margin-bottom:1.5rem;">
+        <div class="step-item"><span class="step-num">→</span>KPI summary cards: total employees and risk-level breakdowns (High, Medium, Low)</div>
+        <div class="step-item"><span class="step-num">→</span>Risk vs Productivity: stacked column comparing Affected vs Not Affected across risk tiers</div>
+        <div class="step-item"><span class="step-num">→</span>Pearson correlations of stress, anxiety, and depression scores against productivity</div>
+        <div class="step-item"><span class="step-num">→</span>Pearson correlations of sleep hours, social support, and physical activity against productivity</div>
+        <div class="step-item"><span class="step-num">→</span>Treatment-seeking impact: productivity comparison between treatment-seekers and non-seekers</div>
+        <div class="step-item"><span class="step-num">→</span>Mental health history matrices: productivity stats and current risk distribution by history</div>
+      </div>
+      <div class="links-row">
+        <a href="https://github.com/thankgod-obiekezie/employee-mental-health-analysis/blob/main/mental_health.sql" target="_blank" class="btn btn-primary">
+          SQL Script →
+        </a>
+        <a href="https://github.com/thankgod-obiekezie/employee-mental-health-analysis-dashboard" target="_blank" class="btn btn-ghost">
+          Power BI Report
+        </a>
+        <a href="https://github.com/thankgod-obiekezie/employee-mental-health-analysis-dashboard/blob/main/mental%20health%20analysis%20dashboard_page.jpg" target="_blank" class="btn btn-ghost">
+          Dashboard Screenshot
+        </a>
+      </div>
+    </div>
+
+    <!-- INSIGHTS -->
+    <div class="proj-section fade-in">
+      <div class="section-label">Findings</div>
+      <h2 class="section-heading">Key insights</h2>
+      <div class="insights-list">
+        <div class="insight-item">
+          <div class="insight-text"><strong>33%</strong> of medium/high-risk employees scored below the productivity threshold (&lt;70); 50% scored ≥70, suggesting risk level alone does not determine output.</div>
+        </div>
+        <div class="insight-item">
+          <div class="insight-text">Sleep hours, physical activity, and social support showed <strong>little to no association</strong> with productivity among at-risk employees — contrary to common assumptions.</div>
+        </div>
+        <div class="insight-item">
+          <div class="insight-text"><strong>40%</strong> of at-risk employees sought treatment, but no substantial productivity difference was observed between treatment-seekers and non-seekers.</div>
+        </div>
+        <div class="insight-item">
+          <div class="insight-text"><strong>Depression scores</strong> correlated most strongly with lower productivity. Anxiety and stress levels showed no meaningful association — pointing to depression as the primary clinical lever.</div>
+        </div>
+        <div class="insight-item">
+          <div class="insight-text">Productivity was <strong>similar across remote, hybrid, and on-site</strong> employees, though on-site workers were overrepresented in higher-risk categories.</div>
+        </div>
+        <div class="insight-item">
+          <div class="insight-text">Gender differences in risk levels and productivity were <strong>minimal</strong>, and prior mental health history did not significantly predict current risk or productivity scores.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RECOMMENDATIONS -->
+    <div class="proj-section fade-in">
+      <div class="section-label">Action</div>
+      <h2 class="section-heading">Recommendations</h2>
+      <div class="rec-grid">
+        <div class="rec-card">
+          <div class="rec-icon">🎯</div>
+          <div class="rec-text">Prioritise interventions targeting employees with <strong>high depression scores</strong> specifically — not mental health risk broadly.</div>
+        </div>
+        <div class="rec-card">
+          <div class="rec-icon">🏢</div>
+          <div class="rec-text">Implement <strong>proactive mental health monitoring</strong> for on-site employees, who are overrepresented in higher-risk categories.</div>
+        </div>
+        <div class="rec-card">
+          <div class="rec-icon">🔄</div>
+          <div class="rec-text">Consider <strong>holistic support programmes</strong> beyond lifestyle interventions — sleep and exercise alone showed limited impact on productivity.</div>
+        </div>
+        <div class="rec-card">
+          <div class="rec-icon">📈</div>
+          <div class="rec-text">Use this analysis as a <strong>baseline for longitudinal tracking</strong> — measure intervention impact over time rather than expecting immediate gains.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONCLUSION -->
+    <div class="proj-section fade-in">
+      <div class="section-label">Summary</div>
+      <h2 class="section-heading">Conclusion</h2>
+      <div class="conclusion-block">
+        <p>
+          Depression emerged as the <strong>primary clinical factor</strong> associated with productivity decline — while lifestyle variables and treatment-seeking showed limited predictive power. This challenges blanket wellness programme assumptions and argues for more <strong>targeted, condition-specific interventions</strong>. The insights enable HR teams to allocate support resources where the data shows they matter most: at-risk employees with elevated depression scores and on-site work arrangements.
+        </p>
+      </div>
+    </div>
+
+    <!-- LIMITATIONS -->
+    <div class="proj-section fade-in">
+      <div class="section-label">Caveats</div>
+      <h2 class="section-heading">Limitations</h2>
+      <div class="limit-list">
+        <div class="limit-item"><div class="limit-dot"></div>Cross-sectional data — associations identified here cannot be interpreted as causal relationships.</div>
+        <div class="limit-item"><div class="limit-dot"></div>No time-sequenced data to track productivity changes following lifestyle shifts or treatment interventions.</div>
+        <div class="limit-item"><div class="limit-dot"></div>Key confounders absent from the dataset: workload, managerial support, compensation, and personal stressors.</div>
+      </div>
+    </div>
+
+  </div><!-- /proj-body -->
+
+  <!-- FOOTER -->
+  <footer>
+    <p class="footer-text">Thankgod Obiekezie &nbsp;·&nbsp; <a href="../index.html" style="color:#4a6a82; text-decoration:none;">Back to portfolio</a></p>
+  </footer>
+
+  <script>
+    const faders = document.querySelectorAll('.fade-in');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.08 });
+    faders.forEach(f => observer.observe(f));
+  </script>
+
 </body>
 </html>
-
