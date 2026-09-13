@@ -356,6 +356,60 @@
       color: var(--text-soft);
       line-height: 1.5;
     }
+
+    /* in-progress (learning) skill cards — matches the "upcoming project" grey/dashed theme */
+    .skill-card.in-progress {
+      background: var(--offwhite);
+      border-style: dashed;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .skill-card.in-progress .skill-tool { color: var(--navy); }
+    .skill-card.in-progress .skill-desc { color: var(--slate); }
+
+    .in-progress-label {
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--slate);
+      margin-bottom: 0.4rem;
+    }
+
+    /* partially in-progress cards: a grey/dashed panel alongside the content, sized to the learned fraction */
+    .skill-card.partial-progress {
+      display: flex;
+      align-items: stretch;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .skill-card.partial-progress .skill-card-main {
+      flex: 1 1 auto;
+      min-width: 0;
+      padding: 1.2rem 1.4rem;
+    }
+
+    .skill-card .progress-overlay {
+      flex: 0 0 auto;
+      background: var(--offwhite);
+      border-left: 1px dashed var(--border);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0.7rem 0.4rem 0;
+      text-align: center;
+    }
+
+    .progress-overlay span {
+      font-family: var(--font-mono);
+      font-size: 0.56rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--slate);
+      line-height: 1.35;
+    }
  
     /* ── PROJECTS ── */
     #projects { background: #fff; }
@@ -756,31 +810,41 @@
 			</div>
 
 			<!-- Row 2: Machine Learning -->
-			<div class="skill-card">
+			<div class="skill-card in-progress">
+				<div class="in-progress-label">In progress</div>
 				<div class="skill-tool">Machine Learning</div>
 				<div class="skill-desc">scikit-learn — classification, regression, random forests, model evaluation (ROC-AUC, F1)</div>
 			</div>
-			<div class="skill-card">
+			<div class="skill-card in-progress">
+				<div class="in-progress-label">In progress</div>
 				<div class="skill-tool">LLM APIs & RAG</div>
 				<div class="skill-desc">Anthropic / OpenAI APIs, prompt engineering, retrieval-augmented generation pipelines</div>
 			</div>
-			<div class="skill-card">
+			<div class="skill-card in-progress">
+				<div class="in-progress-label">In progress</div>
 				<div class="skill-tool">NLP</div>
 				<div class="skill-desc">Text cleaning, TF-IDF, sentiment analysis — applied to clinical notes and drug reviews</div>
 			</div>
 
 			<!-- Row 3: AI & Deployment -->
-			<div class="skill-card">
+			<div class="skill-card in-progress">
+				<div class="in-progress-label">In progress</div>
 				<div class="skill-tool">Streamlit / FastAPI</div>
 				<div class="skill-desc">Deploying ML models and AI tools as lightweight web applications</div>
 			</div>
-			<div class="skill-card">
-				<div class="skill-tool">Biostatistics</div>
-				<div class="skill-desc">Hypothesis testing, survival analysis, inferential methods for clinical datasets</div>
+			<div class="skill-card partial-progress">
+				<div class="skill-card-main">
+					<div class="skill-tool">Biostatistics</div>
+					<div class="skill-desc">Hypothesis testing, survival analysis, inferential methods for clinical datasets</div>
+				</div>
+				<div class="progress-overlay" style="flex-basis:50%;"><span>In progress</span></div>
 			</div>
-			<div class="skill-card">
-				<div class="skill-tool">Clinical Domain</div>
-				<div class="skill-desc">Pharmacovigilance, drug therapy, ICD codes, clinical workflows, pharmaceutical care</div>
+			<div class="skill-card partial-progress">
+				<div class="skill-card-main">
+					<div class="skill-tool">Clinical Domain</div>
+					<div class="skill-desc">Pharmacovigilance, drug therapy, ICD codes, clinical workflows, pharmaceutical care</div>
+				</div>
+				<div class="progress-overlay" style="flex-basis:25%;"><span>In progress</span></div>
 			</div>
         </div>
       </div>
