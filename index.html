@@ -1,1033 +1,314 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-  <title>Thankgod Obiekezie — Health Data Scientist</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
- 
-  <style>
-    /* ── RESET ── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
- 
-    /* ── TOKENS ── */
-    :root {
-      --navy:      #0B1F3A;
-      --navy-mid:  #132840;
-      --teal:      #0E9F8E;
-      --teal-lt:   #E8F4F2;
-      --teal-mid:  #0cc4ae;
-      --offwhite:  #F0F4F8;
-      --slate:     #8FA3B1;
-      --text:      #1A2E42;
-      --text-soft: #4A6070;
-      --border:    #D6E4EE;
- 
-      --font-display: 'DM Serif Display', Georgia, serif;
-      --font-body:    'Inter', system-ui, sans-serif;
-      --font-mono:    'JetBrains Mono', 'Courier New', monospace;
-    }
- 
-    body {
-      font-family: var(--font-body);
-      background: var(--offwhite);
-      color: var(--text);
-      line-height: 1.65;
-    }
- 
-    /* ── NAV ── */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      background: rgba(11, 31, 58, 0.97);
-      backdrop-filter: blur(8px);
-      border-bottom: 1px solid rgba(14, 159, 142, 0.25);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 2.5rem;
-      height: 56px;
-    }
- 
-    .nav-logo {
-      font-family: var(--font-display);
-      font-size: 1rem;
-      color: #fff;
-      letter-spacing: 0.01em;
-    }
- 
-    .nav-logo span { color: var(--teal); }
- 
-    .nav-links {
-      display: flex;
-      gap: 2rem;
-      list-style: none;
-    }
- 
-    .nav-links a {
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      color: var(--slate);
-      text-decoration: none;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      transition: color 0.2s;
-    }
- 
-    .nav-links a:hover { color: var(--teal); }
- 
-    /* ── HERO ── */
-    .hero {
-      background: var(--navy);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 7rem 2.5rem 4rem;
-      position: relative;
-      overflow: hidden;
-    }
- 
-    /* ECG pulse line */
-    .hero-canvas {
-      position: absolute;
-      bottom: 60px;
-      left: 0;
-      width: 100%;
-      height: 80px;
-      opacity: 0.18;
-    }
- 
-    .hero-inner {
-      max-width: 780px;
-      margin: 0 auto;
-      width: 100%;
-      position: relative;
-      z-index: 2;
-    }
- 
-    .hero-eyebrow {
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      color: var(--teal);
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      margin-bottom: 1.4rem;
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
- 
-    .hero-eyebrow::before {
-      content: '';
-      display: inline-block;
-      width: 32px;
-      height: 1px;
-      background: var(--teal);
-    }
- 
-    .hero-name {
-      font-family: var(--font-display);
-      font-size: clamp(2.8rem, 6vw, 4.8rem);
-      color: #fff;
-      line-height: 1.05;
-      margin-bottom: 0.5rem;
-    }
- 
-    .hero-name em {
-      color: var(--teal);
-      font-style: normal;
-    }
- 
-    .hero-title {
-      font-family: var(--font-display);
-      font-size: clamp(1.1rem, 2.5vw, 1.5rem);
-      color: var(--slate);
-      font-style: italic;
-      margin-bottom: 1.8rem;
-    }
- 
-    .hero-bio {
-      font-size: 1.02rem;
-      color: #b8ccd8;
-      max-width: 560px;
-      line-height: 1.75;
-      margin-bottom: 2.5rem;
-    }
- 
-    .hero-bio strong { color: #fff; font-weight: 500; }
- 
-    .hero-cta {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
- 
-    .btn {
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 0.75rem 1.6rem;
-      border-radius: 3px;
-      text-decoration: none;
-      transition: all 0.2s;
-      display: inline-block;
-    }
- 
-    .btn-primary {
-      background: var(--teal);
-      color: #fff;
-      border: 1.5px solid var(--teal);
-    }
- 
-    .btn-primary:hover {
-      background: var(--teal-mid);
-      border-color: var(--teal-mid);
-    }
- 
-    .btn-ghost {
-      background: transparent;
-      color: var(--slate);
-      border: 1.5px solid rgba(143, 163, 177, 0.4);
-    }
- 
-    .btn-ghost:hover {
-      color: #fff;
-      border-color: rgba(255,255,255,0.5);
-    }
- 
-    /* hero social strip */
-    .hero-social {
-      margin-top: 3rem;
-      display: flex;
-      gap: 1.5rem;
-      align-items: center;
-    }
- 
-    .hero-social a {
-      font-family: var(--font-mono);
-      font-size: 0.68rem;
-      color: var(--slate);
-      text-decoration: none;
-      letter-spacing: 0.06em;
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-      transition: color 0.2s;
-    }
- 
-    .hero-social a:hover { color: var(--teal); }
- 
-    /* ── SECTION SHELL ── */
-    .section {
-      padding: 5rem 2.5rem;
-    }
- 
-    .section-inner {
-      max-width: 780px;
-      margin: 0 auto;
-    }
- 
-    .section-label {
-      font-family: var(--font-mono);
-      font-size: 0.68rem;
-      color: var(--teal);
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      margin-bottom: 0.6rem;
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-    }
- 
-    .section-label::before {
-      content: '';
-      display: inline-block;
-      width: 20px;
-      height: 1px;
-      background: var(--teal);
-    }
- 
-    .section-heading {
-      font-family: var(--font-display);
-      font-size: clamp(1.7rem, 3.5vw, 2.4rem);
-      color: var(--navy);
-      margin-bottom: 2rem;
-      line-height: 1.15;
-    }
- 
-    /* ── ABOUT ── */
-    #about { background: #fff; }
- 
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3rem;
-      align-items: start;
-    }
- 
-    .about-text p {
-      font-size: 0.97rem;
-      color: var(--text-soft);
-      line-height: 1.8;
-      margin-bottom: 1.1rem;
-    }
- 
-    .about-text p strong {
-      color: var(--text);
-      font-weight: 600;
-    }
- 
-    .about-card {
-      background: var(--navy);
-      border-radius: 6px;
-      padding: 1.8rem;
-      color: #fff;
-    }
- 
-    .about-card-label {
-      font-family: var(--font-mono);
-      font-size: 0.65rem;
-      color: var(--teal);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      margin-bottom: 1.2rem;
-    }
- 
-    .about-stat {
-      margin-bottom: 1.1rem;
-      padding-bottom: 1.1rem;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-    }
- 
-    .about-stat:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
- 
-    .about-stat-num {
-      font-family: var(--font-display);
-      font-size: 1.8rem;
-      color: var(--teal);
-      line-height: 1;
-      margin-bottom: 0.2rem;
-    }
- 
-    .about-stat-desc {
-      font-size: 0.78rem;
-      color: var(--slate);
-      line-height: 1.4;
-    }
- 
-    /* ── SKILLS ── */
-    #skills { background: var(--teal-lt); }
- 
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1rem;
-    }
- 
-    .skill-card {
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: 5px;
-      padding: 1.2rem 1.4rem;
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
- 
-    .skill-card:hover {
-      border-color: var(--teal);
-      box-shadow: 0 2px 12px rgba(14,159,142,0.1);
-    }
- 
-    .skill-tool {
-      font-family: var(--font-mono);
-      font-size: 0.78rem;
-      font-weight: 500;
-      color: var(--navy);
-      margin-bottom: 0.35rem;
-    }
- 
-    .skill-desc {
-      font-size: 0.78rem;
-      color: var(--text-soft);
-      line-height: 1.5;
-    }
-
-    /* in-progress (learning) skill cards — matches the "upcoming project" grey/dashed theme */
-    .skill-card.in-progress {
-      background: var(--offwhite);
-      border-style: dashed;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .skill-card.in-progress .skill-tool { color: var(--navy); }
-    .skill-card.in-progress .skill-desc { color: var(--slate); }
-
-    .in-progress-label {
-      font-family: var(--font-mono);
-      font-size: 0.58rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--slate);
-      margin-bottom: 0.4rem;
-    }
-
-    /* partially in-progress cards: a grey/dashed panel alongside the content, sized to the learned fraction */
-    .skill-card.partial-progress {
-      display: flex;
-      align-items: stretch;
-      padding: 0;
-      overflow: hidden;
-    }
-
-    .skill-card.partial-progress .skill-card-main {
-      flex: 1 1 auto;
-      min-width: 0;
-      padding: 1.2rem 1.4rem;
-    }
-
-    .skill-card .progress-overlay {
-      flex: 0 0 auto;
-      background: var(--offwhite);
-      border-left: 1px dashed var(--border);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 0.7rem 0.4rem 0;
-      text-align: center;
-    }
-
-    .progress-overlay span {
-      font-family: var(--font-mono);
-      font-size: 0.56rem;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--slate);
-      line-height: 1.35;
-    }
- 
-    /* ── PROJECTS ── */
-    #projects { background: #fff; }
- 
-    .projects-list {
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-    }
- 
-    .project-card {
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 1.8rem 2rem;
-      transition: border-color 0.2s, box-shadow 0.2s;
-      position: relative;
-      overflow: hidden;
-    }
- 
-    .project-card::before {
-      content: '';
-      position: absolute;
-      left: 0; top: 0; bottom: 0;
-      width: 3px;
-      background: var(--teal);
-      opacity: 0;
-      transition: opacity 0.2s;
-    }
- 
-    .project-card:hover {
-      border-color: rgba(14,159,142,0.4);
-      box-shadow: 0 4px 20px rgba(14,159,142,0.08);
-    }
- 
-    .project-card:hover::before { opacity: 1; }
- 
-    .project-card.coming {
-      background: var(--offwhite);
-      border-style: dashed;
-    }
- 
-    .project-card.coming::before { display: none; }
- 
-    .project-meta {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      margin-bottom: 0.8rem;
-      flex-wrap: wrap;
-    }
- 
-    .project-tag {
-      font-family: var(--font-mono);
-      font-size: 0.62rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 0.22rem 0.6rem;
-      border-radius: 3px;
-      background: var(--teal-lt);
-      color: var(--teal);
-      border: 1px solid rgba(14,159,142,0.25);
-    }
- 
-    .project-tag.general { background: #EEF2F7; color: #4A6070; border-color: var(--border); }
-    .project-tag.upcoming { background: transparent; color: var(--slate); border-color: var(--border); }
- 
-    .project-title {
-      font-family: var(--font-display);
-      font-size: 1.2rem;
-      color: var(--navy);
-      margin-bottom: 0.5rem;
-      line-height: 1.25;
-    }
- 
-    .project-desc {
-      font-size: 0.88rem;
-      color: var(--text-soft);
-      line-height: 1.7;
-      margin-bottom: 1.1rem;
-    }
- 
-    .project-desc.coming-desc {
-      color: var(--slate);
-      font-style: italic;
-    }
- 
-    .project-stack {
-      display: flex;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-      margin-bottom: 1.1rem;
-    }
- 
-    .stack-chip {
-      font-family: var(--font-mono);
-      font-size: 0.65rem;
-      color: var(--text-soft);
-      background: var(--offwhite);
-      border: 1px solid var(--border);
-      padding: 0.18rem 0.55rem;
-      border-radius: 3px;
-    }
- 
-    .project-link {
-      font-family: var(--font-mono);
-      font-size: 0.7rem;
-      color: var(--teal);
-      text-decoration: none;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      transition: gap 0.2s;
-    }
- 
-    .project-link:hover { gap: 0.6rem; }
- 
-    /* upcoming projects — compact 2-col grid */
-    .upcoming-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-      margin-top: 1.5rem;
-    }
- 
-    .upcoming-card {
-      border: 1px dashed var(--border);
-      border-radius: 5px;
-      padding: 1.2rem 1.4rem;
-      background: var(--offwhite);
-    }
- 
-    .upcoming-title {
-      font-family: var(--font-body);
-      font-weight: 600;
-      font-size: 0.88rem;
-      color: var(--navy);
-      margin-bottom: 0.3rem;
-    }
- 
-    .upcoming-desc {
-      font-size: 0.78rem;
-      color: var(--slate);
-      line-height: 1.5;
-    }
- 
-    .upcoming-label {
-      font-family: var(--font-mono);
-      font-size: 0.6rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--slate);
-      margin-bottom: 0.8rem;
-    }
- 
-    /* ── CONTACT ── */
-    #contact { background: var(--navy); }
- 
-    #contact .section-label { color: var(--teal); }
-    #contact .section-label::before { background: var(--teal); }
-    #contact .section-heading { color: #fff; }
- 
-    .contact-sub {
-      font-size: 0.95rem;
-      color: var(--slate);
-      margin-bottom: 2.5rem;
-      line-height: 1.7;
-    }
- 
-    .contact-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2.5rem;
-      align-items: start;
-    }
- 
-    .form-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.85rem;
-      margin-bottom: 0.85rem;
-    }
- 
-    .form-group { margin-bottom: 0.85rem; }
- 
-    input[type="text"],
-    input[type="email"],
-    textarea {
-      width: 100%;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 4px;
-      padding: 0.75rem 1rem;
-      font-family: var(--font-body);
-      font-size: 0.88rem;
-      color: #fff;
-      outline: none;
-      transition: border-color 0.2s;
-    }
- 
-    input::placeholder, textarea::placeholder { color: var(--slate); }
- 
-    input:focus, textarea:focus {
-      border-color: var(--teal);
-    }
- 
-    textarea { resize: vertical; min-height: 120px; }
- 
-    .contact-info {
-      padding-top: 0.5rem;
-    }
- 
-    .contact-info-item {
-      display: flex;
-      flex-direction: column;
-      margin-bottom: 1.6rem;
-    }
- 
-    .ci-label {
-      font-family: var(--font-mono);
-      font-size: 0.62rem;
-      color: var(--teal);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      margin-bottom: 0.3rem;
-    }
- 
-    .ci-value {
-      font-size: 0.9rem;
-      color: #d0dde8;
-    }
- 
-    .ci-value a {
-      color: #d0dde8;
-      text-decoration: none;
-      transition: color 0.2s;
-    }
- 
-    .ci-value a:hover { color: var(--teal); }
- 
-    /* ── FOOTER ── */
-    footer {
-      background: #071526;
-      padding: 1.8rem 2.5rem;
-      text-align: center;
-    }
- 
-    .footer-text {
-      font-family: var(--font-mono);
-      font-size: 0.65rem;
-      color: #3d5468;
-      letter-spacing: 0.08em;
-    }
- 
-    .footer-text a { color: #4a6a82; text-decoration: none; }
- 
-    /* ── DIVIDER ── */
-    .divider {
-      height: 1px;
-      background: var(--border);
-      margin: 2.5rem 0;
-    }
- 
-    /* ── RESPONSIVE ── */
-    @media (max-width: 680px) {
-      nav { padding: 0 1.25rem; }
-      .nav-links { gap: 1.2rem; }
-      .hero, .section { padding-left: 1.25rem; padding-right: 1.25rem; }
-      .about-grid, .contact-grid { grid-template-columns: 1fr; }
-      .skills-grid { grid-template-columns: 1fr 1fr; }
-      .form-row { grid-template-columns: 1fr; }
-      .upcoming-grid { grid-template-columns: 1fr; }
-      .nav-links a { font-size: 0.64rem; }
-    }
- 
-    @media (max-width: 420px) {
-      .skills-grid { grid-template-columns: 1fr; }
-    }
- 
-    /* ── FADE IN ── */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(18px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-    .fade-in.visible {
-      opacity: 1;
-      transform: none;
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Thankgod Obiekezie | Data Analyst</title>
+<meta name="description" content="Data analyst skilled in SQL, Power BI, Excel and Python. Turning messy data into decisions people can act on.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0b1a30;--navy2:#13294a;--teal:#12a594;--teal-d:#0b7a6e;--amber:#f2b04a;--bg:#f5f7fa;--card:#fff;--ink:#14233a;--mute:#5a6a82;--line:#dde4ee;
+--f:"Manrope",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;--m:"IBM Plex Mono",Consolas,monospace}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:5rem}
+body{font:400 1rem/1.7 var(--f);background:var(--bg);color:var(--ink)}
+a{color:var(--teal-d)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-offset:3px}
+.w{max-width:1080px;margin:0 auto;padding:0 1.5rem}
+/* nav */
+nav{position:sticky;top:0;z-index:20;background:rgba(11,26,48,.96);backdrop-filter:blur(8px)}
+nav .w{display:flex;justify-content:space-between;align-items:center;height:4rem}
+.logo{color:#fff;font-weight:800;text-decoration:none;font-size:1.1rem;letter-spacing:-.01em}
+.logo i{font-style:normal;color:var(--teal)}
+nav ul{display:flex;gap:1.8rem;list-style:none;align-items:center}
+nav ul a{color:#b4c2d6;text-decoration:none;font-size:.92rem;font-weight:500}
+nav ul a:hover{color:#fff}
+nav .cta{background:var(--teal);color:#06201c;padding:.45rem 1rem;border-radius:6px;font-weight:700}
+/* hero */
+.hero{background:radial-gradient(circle at 85% 20%,#1b3a66 0,transparent 45%),var(--navy);color:#fff;padding:5.5rem 0 0;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:48px 48px;mask-image:linear-gradient(#000,transparent 85%);pointer-events:none}
+.hero .w{position:relative;z-index:1;display:grid;grid-template-columns:1.25fr .75fr;gap:3.5rem;align-items:center}
+.eyebrow{font:500 .8rem var(--m);color:var(--teal);margin-bottom:1.2rem}
+h1{font-size:clamp(2.3rem,5.2vw,3.8rem);line-height:1.08;font-weight:800;letter-spacing:-.03em;margin-bottom:1.3rem}
+h1 span{color:var(--teal)}
+.lead{font-size:1.12rem;color:#b9c8dc;max-width:34rem;margin-bottom:2rem}
+.btns{display:flex;gap:.8rem;flex-wrap:wrap}
+.btn{display:inline-block;padding:.8rem 1.5rem;border-radius:8px;font-weight:700;text-decoration:none;font-size:.95rem;border:1.5px solid transparent;cursor:pointer;font-family:var(--f)}
+.btn.p{background:var(--teal);color:#06201c}.btn.p:hover{background:#19c0ad}
+.btn.g{border-color:#3a527a;color:#fff}.btn.g:hover{border-color:#fff}
+.photo{aspect-ratio:4/5;border-radius:18px;border:2px dashed #3a527a;background:linear-gradient(160deg,#173057,#0e203b);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.6rem;color:#8ea3c2;text-align:center;font-size:.85rem;position:relative}
+.photo svg{width:64px;height:64px;opacity:.6}
+.photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:16px}
+.badge{position:absolute;left:-1.2rem;bottom:1.5rem;background:#fff;color:var(--ink);border-radius:10px;padding:.7rem 1rem;box-shadow:0 12px 30px -10px rgba(0,0,0,.5);font-size:.8rem;line-height:1.3}
+.badge b{display:block;font-size:1.3rem;color:var(--teal-d)}
+.strip{background:var(--navy2);margin-top:4.5rem;position:relative;z-index:1}
+.strip .w{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;padding-top:1.6rem;padding-bottom:1.6rem}
+.strip b{display:block;font-size:1.7rem;font-weight:800;color:#fff;line-height:1.1}
+.strip span{font-size:.82rem;color:#9db0cc}
+/* sections */
+.sec{padding:5.5rem 0}.sec.alt{background:#fff}
+.sec h2{font-size:clamp(1.7rem,3.4vw,2.4rem);line-height:1.15;letter-spacing:-.02em;font-weight:800;margin-bottom:.7rem}
+.sub{color:var(--mute);max-width:38rem;margin-bottom:2.8rem}
+.two{display:grid;grid-template-columns:1.1fr .9fr;gap:3.5rem;align-items:start}
+.two p{color:var(--mute);margin-bottom:1rem}.two p strong{color:var(--ink)}
+.str{display:grid;gap:1rem}
+.str div{background:var(--bg);border-left:4px solid var(--teal);padding:1rem 1.2rem;border-radius:0 10px 10px 0}
+.str b{display:block;margin-bottom:.15rem}.str span{font-size:.92rem;color:var(--mute)}
+.skills{display:grid;grid-template-columns:repeat(4,1fr);gap:1.1rem}
+.sk{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:1.5rem}
+.sk h3{font-size:1.1rem;margin-bottom:.2rem}.sk .lv{font:500 .72rem var(--m);color:var(--teal-d);margin-bottom:.8rem;display:block}
+.sk ul{list-style:none;font-size:.9rem;color:var(--mute)}.sk li{padding:.2rem 0;border-top:1px solid var(--line)}
+.feat{display:grid;grid-template-columns:1.05fr .95fr;background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 20px 40px -28px rgba(11,26,48,.4)}
+.feat .ph{min-height:300px;border-radius:0;border:0;border-right:2px dashed var(--line)}
+.feat .txt{padding:2.2rem}
+.tag{display:inline-block;font:500 .72rem var(--m);background:#e3f5f2;color:var(--teal-d);padding:.2rem .6rem;border-radius:5px;margin:0 .3rem .4rem 0}
+.feat h3{font-size:1.5rem;line-height:1.25;margin:.6rem 0 .8rem;letter-spacing:-.01em}
+.feat p{color:var(--mute);margin-bottom:1.2rem}
+.k{display:flex;gap:1.5rem;margin-bottom:1.4rem}.k b{display:block;font-size:1.5rem;color:var(--teal-d);line-height:1.1}.k span{font-size:.78rem;color:var(--mute)}
+.more{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem;margin-top:1.4rem}
+.soon{border:1.5px dashed var(--line);border-radius:14px;padding:1.4rem;background:#fff}
+.soon b{display:block;margin:.4rem 0 .2rem}.soon span{font-size:.88rem;color:var(--mute)}
+.ph{background:repeating-linear-gradient(45deg,#eef2f7,#eef2f7 12px,#e6ebf2 12px,#e6ebf2 24px);border:2px dashed #b7c4d6;border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.4rem;color:var(--mute);font-size:.85rem;text-align:center;padding:1rem;position:relative}
+.ph svg{width:44px;height:44px;opacity:.55}
+.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+/* contact */
+.contact{background:var(--navy);color:#fff}
+.contact .sub{color:#9db0cc}
+.cg{display:grid;grid-template-columns:1.1fr .9fr;gap:3rem}
+form{display:grid;gap:.8rem}
+.fr{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+input,textarea{width:100%;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.18);border-radius:8px;padding:.85rem 1rem;color:#fff;font:inherit;font-size:.95rem}
+input::placeholder,textarea::placeholder{color:#8ea3c2}
+input:focus,textarea:focus{outline:2px solid var(--teal);border-color:transparent}
+textarea{min-height:130px;resize:vertical}
+.ci{display:grid;gap:1.3rem;align-content:start}.ci b{display:block;font:500 .72rem var(--m);color:var(--teal);margin-bottom:.1rem}
+.ci a{color:#dbe5f2;text-decoration:none}.ci a:hover{color:var(--teal)}
+footer{background:#07111f;color:#667b99;text-align:center;font-size:.82rem;padding:1.6rem}
+/* case study */
+.ch{background:var(--navy);color:#fff;padding:4.5rem 0 3rem}
+.back{color:#9db0cc;text-decoration:none;font-size:.9rem;display:inline-block;margin-bottom:1.6rem}.back:hover{color:#fff}
+.ch h1{font-size:clamp(2rem,4.4vw,3.1rem);max-width:46rem}
+.meta{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:2.2rem;border-top:1px solid #29406a;padding-top:1.4rem}
+.meta span{display:block;font:500 .72rem var(--m);color:var(--teal);margin-bottom:.15rem}.meta b{font-weight:600}
+.cs{display:grid;grid-template-columns:200px 1fr;gap:3.5rem;padding:3.5rem 0 5rem}
+.toc{position:sticky;top:5.5rem;align-self:start;font-size:.88rem}
+.toc a{display:block;color:var(--mute);text-decoration:none;padding:.3rem 0 .3rem .9rem;border-left:2px solid var(--line)}
+.toc a:hover{color:var(--teal-d);border-color:var(--teal)}
+.cs section{margin-bottom:3rem;max-width:44rem}
+.cs h2{font-size:1.55rem;letter-spacing:-.02em;margin-bottom:.8rem;line-height:1.2}
+.cs p,.cs li{color:var(--mute)}.cs p{margin-bottom:.8rem}
+.cs ul{padding-left:1.2rem}.cs li{margin-bottom:.45rem}.cs li strong,.cs p strong{color:var(--ink)}
+code,.cols span{font:500 .8rem var(--m);background:#e8edf4;border-radius:4px;padding:.1rem .45rem;color:var(--ink)}
+.cols{display:flex;flex-wrap:wrap;gap:.4rem;margin:.6rem 0 1rem}
+.qs{list-style:none;padding:0}.qs li{display:flex;gap:.9rem;background:#fff;border:1px solid var(--line);border-radius:10px;padding:.8rem 1rem}
+.qs b{font:500 .78rem var(--m);color:var(--teal-d);padding-top:.2rem}
+.dash{max-width:none!important}
+.dash .ph{aspect-ratio:16/9}
+.ins{display:grid;grid-template-columns:1fr 1fr;gap:1rem;max-width:none}
+.ic{background:#fff;border:1px solid var(--line);border-radius:12px;padding:1.2rem}
+.ic.hl{grid-column:1/-1;background:var(--navy);border:0}.ic.hl p{color:#c4d2e6}.ic.hl strong{color:#fff}
+.ic .n{font-size:2rem;font-weight:800;color:var(--teal-d);line-height:1;margin-bottom:.4rem}.ic.hl .n{color:var(--amber)}
+.ic p{font-size:.92rem;margin:0}
+@media(max-width:860px){.hero .w,.two,.feat,.cg,.cs{grid-template-columns:1fr}.photo{max-width:320px}.badge{left:.5rem}.strip .w,.meta{grid-template-columns:1fr 1fr}.skills{grid-template-columns:1fr 1fr}.more,.ins{grid-template-columns:1fr}.toc{display:none}.feat .ph{border-right:0;border-bottom:2px dashed var(--line)}nav ul li:not(:last-child){display:none}.hero{padding-top:3.5rem}}
+@media(max-width:480px){.skills,.fr{grid-template-columns:1fr}}
+@keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.hero .w>*{animation:up .8s ease-out both}.hero .w>*:nth-child(2){animation-delay:.15s}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;scroll-behavior:auto!important}}
+/* v2 additions */
+.rib{background:var(--navy2);overflow:hidden;white-space:nowrap;padding:1.1rem 0;margin-top:4.5rem;position:relative;z-index:1}
+.rib div{display:inline-block;animation:slide 30s linear infinite}
+.rib span{font:500 .85rem var(--m);color:#9db0cc;margin:0 1.4rem}
+.rib span::before{content:"\25C6";color:var(--teal);margin-right:1.4rem;font-size:.6rem}
+@keyframes slide{to{transform:translateX(-50%)}}
+.badge.b2{left:auto;right:-1rem;top:1.5rem;bottom:auto}
+.sv{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem}
+.sc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:1.6rem;transition:transform .25s,box-shadow .25s,border-color .25s}
+.sc:hover{transform:translateY(-4px);border-color:var(--teal);box-shadow:0 18px 30px -20px rgba(11,26,48,.45)}
+.sc i{font:500 .8rem var(--m);font-style:normal;color:var(--teal-d);background:#e3f5f2;border-radius:6px;padding:.2rem .55rem;display:inline-block;margin-bottom:.9rem}
+.sc h3{font-size:1.1rem;margin-bottom:.4rem}.sc p{font-size:.92rem;color:var(--mute)}
+.proc{display:grid;grid-template-columns:260px 1fr;gap:2rem;background:var(--navy);border-radius:18px;padding:1.6rem;color:#fff}
+.tabs{display:grid;gap:.4rem;align-content:start}
+.tabs button{text-align:left;background:transparent;border:1px solid transparent;color:#9db0cc;font:600 .95rem var(--f);padding:.8rem 1rem;border-radius:10px;cursor:pointer;display:flex;gap:.8rem}
+.tabs button span{font:500 .8rem var(--m);color:var(--teal);padding-top:.1rem}
+.tabs button:hover{color:#fff}
+.tabs button[aria-selected="true"]{background:#1a355d;border-color:#2c4a7a;color:#fff}
+.pnl{padding:1rem .8rem}.pnl[hidden]{display:none}
+.pnl h3{font-size:1.5rem;margin-bottom:.7rem;letter-spacing:-.01em}.pnl p{color:#c4d2e6;max-width:34rem;margin-bottom:1.2rem}
+.pnl .tag{background:#1a355d;color:#7be0d2}
+.tl{border-left:2px solid var(--line);margin-left:.5rem;display:grid;gap:1.6rem;max-width:46rem}
+.ti{position:relative;padding-left:1.8rem}
+.ti::before{content:"";position:absolute;left:-.55rem;top:.4rem;width:.9rem;height:.9rem;border-radius:50%;background:var(--teal);border:3px solid var(--bg)}
+.alt .ti::before{border-color:#fff}
+.ti h3{font-size:1.1rem}.ti .o{font:500 .78rem var(--m);color:var(--teal-d);display:block;margin:.1rem 0 .5rem}.ti p{color:var(--mute);font-size:.94rem}
+.flt{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.6rem}
+.flt button{background:#fff;border:1px solid var(--line);border-radius:999px;padding:.4rem 1rem;font:600 .85rem var(--f);color:var(--mute);cursor:pointer}
+.flt button[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:#fff}
+.pg{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
+.pc{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;transition:transform .25s,box-shadow .25s}
+.pc:hover{transform:translateY(-4px);box-shadow:0 20px 34px -22px rgba(11,26,48,.5)}
+.pc[hidden]{display:none}
+.pc .ph{border:0;border-bottom:2px dashed var(--line);border-radius:0;aspect-ratio:16/10}
+.pc .bd{padding:1.3rem;display:flex;flex-direction:column;flex:1}
+.pc h3{font-size:1.08rem;line-height:1.3;margin:.5rem 0}.pc p{font-size:.9rem;color:var(--mute);margin-bottom:1rem;flex:1}
+.pc a.l{font-weight:700;font-size:.9rem;text-decoration:none}.pc a.l:hover{text-decoration:underline}
+.pc.dim{background:transparent;border-style:dashed}.pc.dim .l{color:var(--mute)}
+.band{background:linear-gradient(120deg,var(--teal-d),#0f5f8a);color:#fff;padding:3.5rem 0}
+.band .w{display:flex;justify-content:space-between;align-items:center;gap:2rem;flex-wrap:wrap}
+.band h2{font-size:1.7rem;margin:0 0 .3rem}.band p{color:#d4ece8}
+.btn.wh{background:#fff;color:var(--navy)}.btn.wh:hover{background:#e8f1f6}
+.js .rv{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
+.js .rv.in{opacity:1;transform:none}
+@media(max-width:860px){.sv,.pg{grid-template-columns:1fr 1fr}.proc{grid-template-columns:1fr}.tabs{grid-template-columns:repeat(5,auto);overflow-x:auto}.tabs button{white-space:nowrap}.badge.b2{right:.5rem}nav ul li:not(:last-child){display:none}}
+@media(max-width:560px){.sv,.pg{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.js .rv{opacity:1;transform:none}}
+.hero h1 span{display:block;font-size:.52em;margin-top:.62em}
+.lead strong{color:#fff;font-weight:300}
+.photo img{object-position:center 20%}
+.badge{left:auto;right:-1.2rem}
+.badge.b2{right:auto;left:-1rem}
+@media(min-width:861px){.hero .w{grid-template-columns:.8fr 1.2fr}}
+@media(max-width:860px){.badge{right:.5rem}.badge.b2{left:.5rem}}
+.hero h1{font-size:clamp(1.9rem,4vw,3rem)}
+</style>
 </head>
- 
 <body>
- 
-  <!-- NAV -->
-  <nav>
-    <div class="nav-logo">Tk<span></div>
-    <ul class="nav-links">
-      <li><a href="#about">About</a></li>
-      <li><a href="#skills">Stack</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </nav>
- 
-  <!-- HERO -->
-  <section class="hero">
-    <canvas class="hero-canvas" id="ecg"></canvas>
-    <div class="hero-inner">
-      <div class="hero-eyebrow">Health Data Scientist &amp; Clinical Analyst</div>
-      <h1 class="hero-name">Thankgod<br><em>Obiekezie</em></h1>
-      <p class="hero-title">Where clinical knowledge meets data intelligence.</p>
-      <p class="hero-bio">
-        <strong>Pharmacist</strong> with experience across inpatient care, IVF fertility, outpatient, and pharmacy operations — now building at the intersection of <strong>healthcare and AI</strong>. I turn clinical complexity into data-driven decisions.
-      </p>
-      <div class="hero-cta">
-        <a href="#projects" class="btn btn-primary">View Projects</a>
-        <a href="#contact" class="btn btn-ghost">Get in Touch</a>
-      </div>
-      <div class="hero-social">
-        <a href="https://github.com/thankgod-obiekezie" target="_blank">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
-          GitHub
-        </a>
-        <a href="mailto:obiekeziethankgod@gmail.com">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-          Email
-        </a>
-        <a href="https://linkedin.com/in/thankgod-obiekezie" target="_blank">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
-          LinkedIn
-        </a>
-      </div>
-    </div>
-  </section>
- 
-  <!-- ABOUT -->
-  <section class="section" id="about">
-    <div class="section-inner">
-      <div class="section-label">Background</div>
-      <h2 class="section-heading">Clinical expertise.<br>Data-driven thinking.</h2>
-      <div class="about-grid fade-in">
-        <div class="about-text">
-          <p>
-            I'm a licensed pharmacist making a deliberate pivot into <strong>health data science</strong> — not away from healthcare, but deeper into it. My experience has given me a first-hand exposure to the messy, high-stakes realities of clinical decision-making that most data analysts never encounter.
-          </p>
-          <p>
-            I understand drug interactions not just as rows in a database, but as decisions made under pressure. I understand patient data not just as records, but as outcomes. That clinical lens is what I bring to every analysis and model I build.
-          </p>
-          <p>
-            I'm focused on <strong>clinical data science, pharmacovigilance, and AI-assisted healthcare tools</strong> — with plans to work at the intersection of medicine and machine learning internationally.
-          </p>
-        </div>
-        <div>
-          <div class="about-card">
-            <div class="about-card-label">// clinical snapshot</div>
-            <div class="about-stat">
-              <div class="about-stat-num">4</div>
-              <div class="about-stat-desc">Practice experience — inpatient, outpatient, pharmacy store and inventory management, IVF fertility clinic</div>
-            </div>
-            <div class="about-stat">
-              <div class="about-stat-num">5+</div>
-              <div class="about-stat-desc">Analytics tools in active use — SQL, Python, Power BI, Excel, SPSS</div>
-            </div>
-            <div class="about-stat">
-              <div class="about-stat-num">∩</div>
-              <div class="about-stat-desc">The intersection I work at: pharmacy domain knowledge × data science × AI</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
- 
-  <!-- SKILLS -->
-  <section class="section" id="skills">
-    <div class="section-inner">
-      <div class="section-label">Capabilities</div>
-      <h2 class="section-heading">Analytics stack</h2>
-      <div class="skills-grid fade-in">
-        <!-- Row 1: Core Analytics (existing) -->
-		 	<div class="skill-card">
-  				<div class="skill-tool">Excel / Google Sheets</div>
-  				<div class="skill-desc">Data cleaning, pivot tables, advanced formulas, Power Query, structured reporting</div>
-			</div>
-			<div class="skill-card">
-				<div class="skill-tool">SQL</div>
-				<div class="skill-desc">Advanced querying, joins, CTEs, window functions, database design, triggers</div>
-			</div>
-			<div class="skill-card">
-				<div class="skill-tool">Power BI / Tableau</div>
-				<div class="skill-desc">Dashboard development, KPI reporting, data modelling, DAX</div>
-			</div>
-			<div class="skill-card">
-				<div class="skill-tool">Python</div>
-				<div class="skill-desc">Pandas, NumPy, Matplotlib, Seaborn — data wrangling, EDA, automation</div>
-			</div>
+<nav><div class="w"><a class="logo" href="#top">Tk</a>
+<ul><li><a href="#about">About</a></li><li><a href="#services">Services</a></li><li><a href="#process">Process</a></li><li><a href="#skills">Skills</a></li><li><a href="#projects">Projects</a></li><li><a class="cta" href="#contact">Contact</a></li></ul></div></nav>
 
-			<!-- Row 2: Machine Learning -->
-			<div class="skill-card in-progress">
-				<div class="in-progress-label">In progress</div>
-				<div class="skill-tool">Machine Learning</div>
-				<div class="skill-desc">scikit-learn — classification, regression, random forests, model evaluation (ROC-AUC, F1)</div>
-			</div>
-			<div class="skill-card in-progress">
-				<div class="in-progress-label">In progress</div>
-				<div class="skill-tool">LLM APIs & RAG</div>
-				<div class="skill-desc">Anthropic / OpenAI APIs, prompt engineering, retrieval-augmented generation pipelines</div>
-			</div>
-			<div class="skill-card in-progress">
-				<div class="in-progress-label">In progress</div>
-				<div class="skill-tool">NLP</div>
-				<div class="skill-desc">Text cleaning, TF-IDF, sentiment analysis — applied to clinical notes and drug reviews</div>
-			</div>
+<header class="hero" id="top">
+ <div class="w">
+  <div class="photo">
+   <img src="images/profile_picture.png" alt="Thankgod Obiekezie">
+  </div>
+  <div>
+   <h1>Thankgod Obiekezie <span>Data Analyst</span></h1>
+   <p class="lead"><strong>I turn messy data into decisions people can act on.</strong> I use SQL, Power BI, Excel and Python to clean, analyse and present data clearly, with the precision of a pharmacist and the curiosity of an analyst.</p>
+   <div class="btns"><a class="btn p" href="#projects">View my work</a><a class="btn g" href="#contact">Get in touch</a></div>
+  </div>
+ </div>
+ <!-- keep your existing <div class="rib">...</div> here, unchanged -->
+</header>
 
-			<!-- Row 3: AI & Deployment -->
-			<div class="skill-card in-progress">
-				<div class="in-progress-label">In progress</div>
-				<div class="skill-tool">Streamlit / FastAPI</div>
-				<div class="skill-desc">Deploying ML models and AI tools as lightweight web applications</div>
-			</div>
-			<div class="skill-card partial-progress">
-				<div class="skill-card-main">
-					<div class="skill-tool">Biostatistics</div>
-					<div class="skill-desc">Hypothesis testing, survival analysis, inferential methods for clinical datasets</div>
-				</div>
-				<div class="progress-overlay" style="flex-basis:50%;"><span>In progress</span></div>
-			</div>
-			<div class="skill-card partial-progress">
-				<div class="skill-card-main">
-					<div class="skill-tool">Clinical Domain</div>
-					<div class="skill-desc">Pharmacovigilance, drug therapy, ICD codes, clinical workflows, pharmaceutical care</div>
-				</div>
-				<div class="progress-overlay" style="flex-basis:25%;"><span>In progress</span></div>
-			</div>
-        </div>
-      </div>
-    </div>
-  </section>
- 
-  <!-- PROJECTS -->
-  <section class="section" id="projects">
-    <div class="section-inner">
-      <div class="section-label">Work</div>
-      <h2 class="section-heading">Projects</h2>
-      <div class="projects-list">
- 
-        <!-- Project 1: live -->
-        <div class="project-card fade-in">
-          <div class="project-meta">
-            <span class="project-tag general">SQL · Analytics</span>
-            <span class="project-tag general">Workplace Health</span>
-          </div>
-          <h3 class="project-title">Employee Mental Health &amp; Productivity Analysis</h3>
-          <p class="project-desc">
-            Used SQL to analyze the relationship between mental health risk factors and employee productivity in a workforce dataset, uncovering productivity patterns, workforce trends, treatment-seeking behaviours and translating occupational mental health data into actionable insights.
-          </p>
-          <div class="project-stack">
-            <span class="stack-chip">SQL</span>
-            <span class="stack-chip">Data Analysis</span>
-            <span class="stack-chip">Occupational Health</span>
-          </div>
-          <a href="project/mental-health.html" class="project-link">
-            View project →
-          </a>
-        </div>
- 
-        <!-- Upcoming projects block -->
-        <div class="fade-in">
-          <div class="upcoming-label">// in progress — building over the next 6 months</div>
-          <div class="upcoming-grid">
-            <div class="upcoming-card">
-              <div class="project-tag upcoming" style="display:inline-block; margin-bottom:0.6rem;">Drug Safety · ML</div>
-              <div class="upcoming-title">Drug Interaction Risk Classifier</div>
-              <div class="upcoming-desc">ML model to flag potentially dangerous drug pairs using public pharmacovigilance data.</div>
-            </div>
-            <div class="upcoming-card">
-              <div class="project-tag upcoming" style="display:inline-block; margin-bottom:0.6rem;">Clinical · Python</div>
-              <div class="upcoming-title">Drug Sales EDA — Nigeria Context</div>
-              <div class="upcoming-desc">Exploratory analysis of drug sales patterns, regional demand, and pricing across Nigerian pharmacy data.</div>
-            </div>
-            <div class="upcoming-card">
-              <div class="project-tag upcoming" style="display:inline-block; margin-bottom:0.6rem;">NLP · Pharmacovigilance</div>
-              <div class="upcoming-title">Drug Review Sentiment Analyser</div>
-              <div class="upcoming-desc">NLP pipeline to classify patient sentiment and extract side-effect mentions from drug reviews.</div>
-            </div>
-            <div class="upcoming-card">
-              <div class="project-tag upcoming" style="display:inline-block; margin-bottom:0.6rem;">AI · RAG</div>
-              <div class="upcoming-title">Pharmacology Q&amp;A Chatbot</div>
-              <div class="upcoming-desc">RAG-powered chatbot trained on clinical treatment guidelines to answer drug therapy questions.</div>
-            </div>
-          </div>
-        </div>
- 
-      </div>
-    </div>
-  </section>
- 
-  <!-- CONTACT -->
-  <section class="section" id="contact">
-    <div class="section-inner">
-      <div class="section-label">Connect</div>
-      <h2 class="section-heading">Get in touch</h2>
-      <p class="contact-sub">Open to roles, collaborations, and conversations at the intersection of healthcare and data. Feel free to reach out.</p>
-      <div class="contact-grid fade-in">
-        <form method="post" action="https://formspree.io/f/mdalgyoz">
-          <div class="form-row">
-            <input type="text" name="name" placeholder="Name" required />
-            <input type="email" name="email" placeholder="Email" required />
-          </div>
-          <div class="form-group">
-            <textarea name="message" placeholder="Message" rows="5" required></textarea>
-          </div>
-          <button type="submit" class="btn btn-primary" style="cursor:pointer; font-family:var(--font-mono); font-size:0.75rem; letter-spacing:0.1em; border:none;">
-            Send Message →
-          </button>
-        </form>
-        <div class="contact-info">
-          <div class="contact-info-item">
-            <span class="ci-label">Location</span>
-            <span class="ci-value">Abuja, Nigeria</span>
-          </div>
-          <div class="contact-info-item">
-            <span class="ci-label">Email</span>
-            <span class="ci-value"><a href="mailto:obiekeziethankgod@gmail.com">obiekeziethankgod@gmail.com</a></span>
-          </div>
-          <div class="contact-info-item">
-            <span class="ci-label">GitHub</span>
-            <span class="ci-value"><a href="https://github.com/thankgod-obiekezie" target="_blank">github.com/thankgod-obiekezie</a></span>
-          </div>
-          <div class="contact-info-item">
-            <span class="ci-label">LinkedIn</span>
-            <span class="ci-value"><a href="https://linkedin.com/in/thankgod-obiekezie" target="_blank">linkedin.com/in/thankgod-obiekezie</a></span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
- 
-  <!-- FOOTER -->
-  <footer>
-    <p class="footer-text">
-      <a href="https://html5up.net">HTML5 UP</a> base &nbsp;·&nbsp; 2025
-    </p>
-  </footer>
- 
-  <!-- ECG ANIMATION -->
-  <script>
-    const canvas = document.getElementById('ecg');
-    const ctx = canvas.getContext('2d');
- 
-    function resize() {
-      canvas.width = canvas.offsetWidth;
-      canvas.height = canvas.offsetHeight;
-    }
-    resize();
-    window.addEventListener('resize', resize);
- 
-    // ECG path points (normalised 0–1 x, -1 to 1 y)
-    const ecgPoints = [
-      [0,0],[0.05,0],[0.06,0.08],[0.07,-0.08],[0.08,0],
-      [0.09,0],[0.1,0.05],[0.115,0.9],[0.12,-0.5],[0.13,0.25],[0.14,0],
-      [0.18,0],[0.19,0.15],[0.21,0.15],[0.22,0],
-      [0.3,0],[0.35,0],[0.36,0.08],[0.37,-0.08],[0.38,0],
-      [0.39,0],[0.4,0.05],[0.415,0.9],[0.42,-0.5],[0.43,0.25],[0.44,0],
-      [0.48,0],[0.49,0.15],[0.51,0.15],[0.52,0],
-      [0.6,0],[0.65,0],[0.66,0.08],[0.67,-0.08],[0.68,0],
-      [0.69,0],[0.7,0.05],[0.715,0.9],[0.72,-0.5],[0.73,0.25],[0.74,0],
-      [0.78,0],[0.79,0.15],[0.81,0.15],[0.82,0],
-      [1,0]
-    ];
- 
-    let progress = 0;
-    const speed = 0.004;
- 
-    function draw() {
-      const w = canvas.width;
-      const h = canvas.height;
-      const mid = h * 0.5;
-      const amp = h * 0.38;
- 
-      ctx.clearRect(0, 0, w, h);
-      ctx.beginPath();
-      ctx.strokeStyle = '#0E9F8E';
-      ctx.lineWidth = 1.5;
-      ctx.shadowColor = '#0E9F8E';
-      ctx.shadowBlur = 6;
- 
-      let started = false;
-      for (let i = 0; i < ecgPoints.length; i++) {
-        const [px, py] = ecgPoints[i];
-        if (px > progress) break;
-        const x = px * w;
-        const y = mid - py * amp;
-        if (!started) { ctx.moveTo(x, y); started = true; }
-        else ctx.lineTo(x, y);
-      }
-      ctx.stroke();
- 
-      if (progress < 1) {
-        progress += speed;
-        requestAnimationFrame(draw);
-      } else {
-        // loop after pause
-        setTimeout(() => { progress = 0; draw(); }, 1800);
-      }
-    }
- 
-    draw();
- 
-    // scroll fade-in
-    const faders = document.querySelectorAll('.fade-in');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-    }, { threshold: 0.1 });
-    faders.forEach(f => observer.observe(f));
-  </script>
- 
+<section class="sec alt" id="about"><div class="w two">
+ <div>
+  <h2>Careful with numbers. Clear with people.</h2>
+  <p>I’m a data analyst who owns the whole process. I start with the business question, clean and shape the data, uncover what’s really driving the numbers and present it so decision-makers know exactly what to do next..</p>
+  <p>I started in <strong>pharmacy practice</strong>, working across inpatient, outpatient, fertility clinic and pharmacy store operations. It trained me to work accurately under pressure, to respect sensitive data and to explain complex things simply. I now apply that discipline to any dataset in any industry.</p>
+ </div>
+ <div class="str">
+  <div><b>Accuracy by habit</b><span>Pharmacy practice leaves no room for sloppy checks, so I validate inputs, document steps and flag limitations.</span></div>
+  <div><b>Inventory and operations sense</b><span>Hands-on stock management gives me a feel for demand, wastage and what a dashboard needs to show.</span></div>
+  <div><b>Plain-language communication</b><span>I'm used to explaining technical points to non-specialists, which is what good reporting needs.</span></div>
+ </div>
+</div></section>
+
+<section class="sec" id="services"><div class="w">
+ <h2>What I can do for you</h2>
+ <p class="sub">From a messy export to a dashboard your team will actually use.</p>
+ <div class="sv">
+  <div class="sc rv"><i>01</i><h3>Data cleaning and preparation</h3><p>Fixing duplicates, missing values and inconsistent formats so the numbers can be trusted.</p></div>
+  <div class="sc rv"><i>02</i><h3>Dashboards and KPI reporting</h3><p>Interactive Power BI dashboards with clear KPIs, slicers and one message per view.</p></div>
+  <div class="sc rv"><i>03</i><h3>Exploratory analysis</h3><p>Finding patterns, segments and relationships in SQL and Python, then testing what holds up.</p></div>
+  <div class="sc rv"><i>04</i><h3>Spreadsheet reporting</h3><p>Pivot-driven Excel reports and Power Query workflows that save hours every cycle.</p></div>
+  <div class="sc rv"><i>05</i><h3>Data modelling</h3><p>Structuring tables and DAX measures so reports stay fast, consistent and easy to extend.</p></div>
+  <div class="sc rv"><i>06</i><h3>Data storytelling</h3><p>Turning findings into plain-language recommendations, with limitations stated honestly.</p></div>
+ </div>
+</div></section>
+
+<section class="sec alt" id="process"><div class="w">
+ <h2>How I work</h2>
+ <p class="sub">The same five steps on every project, so results are repeatable and easy to trust.</p>
+ <div class="proc rv">
+  <div class="tabs" role="tablist" aria-label="Analysis process">
+   <button role="tab" aria-selected="true" data-i="0"><span>01</span>Ask</button>
+   <button role="tab" aria-selected="false" data-i="1"><span>02</span>Clean</button>
+   <button role="tab" aria-selected="false" data-i="2"><span>03</span>Analyse</button>
+   <button role="tab" aria-selected="false" data-i="3"><span>04</span>Visualise</button>
+   <button role="tab" aria-selected="false" data-i="4"><span>05</span>Recommend</button>
+  </div>
+  <div>
+   <div class="pnl" role="tabpanel"><h3>Start with the decision</h3><p>Before touching data, I pin down what the stakeholder needs to decide, which metrics matter and what a useful answer looks like.</p><span class="tag">Business questions</span><span class="tag">KPIs</span></div>
+   <div class="pnl" role="tabpanel" hidden><h3>Make the data trustworthy</h3><p>Check nulls, duplicates, formats and outliers. Standardise categories and document every change so the work can be reproduced.</p><span class="tag">SQL</span><span class="tag">Power Query</span><span class="tag">Pandas</span></div>
+   <div class="pnl" role="tabpanel" hidden><h3>Find what is actually there</h3><p>Explore distributions, segment groups and test relationships with descriptive statistics and correlation, without over-claiming.</p><span class="tag">SQL</span><span class="tag">Python</span><span class="tag">DAX</span></div>
+   <div class="pnl" role="tabpanel" hidden><h3>Show it clearly</h3><p>Build dashboards with one message per view, KPI cards up front and filters so stakeholders can explore on their own.</p><span class="tag">Power BI</span><span class="tag">Excel</span></div>
+   <div class="pnl" role="tabpanel" hidden><h3>End with an action</h3><p>Turn findings into specific recommendations, state the limitations honestly and suggest how to measure the impact.</p><span class="tag">Reports</span><span class="tag">Presentations</span></div>
+  </div>
+ </div>
+</div></section>
+
+<section class="sec" id="skills"><div class="w">
+ <h2>Core analytics toolkit</h2>
+ <p class="sub">The tools I use to take data from raw to decision-ready.</p>
+ <div class="skills">
+  <div class="sk"><h3>SQL</h3><span class="lv">Data extraction and cleaning</span><ul><li>Joins and CTEs</li><li>Window functions</li><li>Aggregation and EDA</li><li>Feature engineering</li></ul></div>
+  <div class="sk"><h3>Power BI</h3><span class="lv">Dashboards and reporting</span><ul><li>Data modelling</li><li>DAX measures</li><li>KPI dashboards</li><li>Interactive slicers</li></ul></div>
+  <div class="sk"><h3>Excel</h3><span class="lv">Analysis and reporting</span><ul><li>Pivot tables</li><li>Advanced formulas</li><li>Power Query</li><li>Data cleaning</li></ul></div>
+  <div class="sk"><h3>Python</h3><span class="lv">Wrangling and visuals</span><ul><li>Pandas and NumPy</li><li>Matplotlib</li><li>Exploratory analysis</li><li>Automation</li></ul></div>
+ </div>
+</div></section>
+
+<section class="sec" id="experience"><div class="w">
+ <h2>Background</h2>
+ <p class="sub">Hands-on practice experience that shaped how I handle data.</p>
+ <div class="tl">
+  <div class="ti rv"><h3>Pharmacist, National Youth Service</h3><span class="o">General Hospital, Ilupeju, Ekiti State</span><p>Worked in a setting where accuracy, accountability and clear communication with colleagues were part of every shift.</p></div>
+  <div class="ti rv"><h3>Pharmacy internship rotations</h3><span class="o">Lily Hospitals Limited</span><p>Rotated through inpatient, outpatient, IVF clinic and pharmacy store operations, including stock and inventory management.</p></div>
+  <div class="ti rv"><h3>Analytics self-development</h3><span class="o">SQL, Power BI, Excel, Python</span><p>Learning and building end-to-end analysis projects, from raw data to dashboards and written recommendations.</p></div>
+ </div>
+</div></section>
+
+<section class="sec alt" id="projects"><div class="w">
+ <h2>Selected projects</h2>
+ <p class="sub">Real questions, structured analysis and clear recommendations.</p>
+ <div class="flt" role="group" aria-label="Filter projects"><button aria-pressed="true" data-f="all">All</button><button aria-pressed="false" data-f="sql">SQL</button><button aria-pressed="false" data-f="powerbi">Power BI</button><button aria-pressed="false" data-f="excel">Excel</button><button aria-pressed="false" data-f="python">Python</button></div>
+ <div class="pg">
+  <article class="pc" data-t="sql powerbi">
+   <!-- DASHBOARD IMAGE: add <img src="dashboard.png" alt="Dashboard preview"> inside this div -->
+   <div class="ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 16v-4M12 16V8M17 16v-6"/></svg><span><img src="../images/mental_health.jpg" alt="Dashboard preview"></span></div>
+   <div class="bd"><div><span class="tag">SQL</span><span class="tag">Power BI</span><span class="tag">DAX</span></div>
+   <h3>Employee Mental Health and Productivity Analysis</h3>
+   <p>Which factors are linked to lower productivity and where should an organisation focus support?</p>
+   <a class="l" href="project/mental-health.html">Read the case study &rarr;</a></div>
+  </article>
+  <article class="pc dim" data-t="excel python">
+   <div class="ph"><span>Image placeholder</span></div>
+   <div class="bd"><div><span class="tag">In progress</span></div><h3>Sales and Demand Analysis</h3><p>Sales patterns, regional demand and pricing to support a restocking strategy.</p><span class="l">Coming soon</span></div>
+  </article>
+  <article class="pc dim" data-t="">
+   <div class="ph"><span>Image placeholder</span></div>
+   <div class="bd"><div><span class="tag">Coming soon</span></div><h3>Project Three</h3><p>Title, business question and tools to be added.</p><span class="l">Coming soon</span></div>
+  </article>
+ </div>
+</div></section>
+
+<section class="band"><div class="w"><div><h2>Want the short version?</h2><p>Download my CV for a one-page summary of my skills and experience.</p></div><a class="btn wh" href="resume.pdf">Download CV</a></div></section>
+
+<section class="sec contact" id="contact"><div class="w">
+ <h2>Let's work together</h2>
+ <p class="sub">Open to data analyst roles and collaborations. Send a message and I'll reply promptly.</p>
+ <div class="cg">
+  <form method="post" action="https://formspree.io/f/mdalgyoz">
+   <div class="fr"><input type="text" name="name" placeholder="Name" aria-label="Name" required><input type="email" name="email" placeholder="Email" aria-label="Email" required></div>
+   <textarea name="message" placeholder="Message" aria-label="Message" required></textarea>
+   <button class="btn p" type="submit">Send message</button>
+  </form>
+  <div class="ci">
+   <div><b>Email</b><a href="mailto:obiekeziethankgod@gmail.com">obiekeziethankgod@gmail.com</a></div>
+   <div><b>LinkedIn</b><a href="https://linkedin.com/in/thankgod-obiekezie" target="_blank" rel="noopener">linkedin.com/in/obiekezie-thankgod</a></div>
+   <div><b>GitHub</b><a href="https://github.com/thankgod-obiekezie" target="_blank" rel="noopener">github.com/thankgod-obiekezie</a></div>
+  </div>
+ </div>
+</div></section>
+<footer>&copy; 2026 Thankgod Obiekezie</footer>
+<script>
+document.documentElement.classList.add('js');
+const io=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}}),{threshold:.12});
+document.querySelectorAll('.rv').forEach(n=>io.observe(n));
+const tabs=[...document.querySelectorAll('.tabs button')],pn=[...document.querySelectorAll('.pnl')];
+tabs.forEach((b,i)=>b.onclick=()=>{tabs.forEach((t,j)=>{t.setAttribute('aria-selected',i==j);pn[j].hidden=i!=j})});
+const fb=[...document.querySelectorAll('.flt button')],cards=[...document.querySelectorAll('.pc')];
+fb.forEach(b=>b.onclick=()=>{fb.forEach(x=>x.setAttribute('aria-pressed',x==b));const f=b.dataset.f;cards.forEach(c=>c.hidden=!(f=='all'||c.dataset.t.split(' ').includes(f)))});
+</script>
 </body>
 </html>
