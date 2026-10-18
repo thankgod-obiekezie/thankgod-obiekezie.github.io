@@ -1,716 +1,244 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Employee Mental Health & Productivity Analysis — Thankgod Obiekezie</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Employee Mental Health and Productivity Analysis | Thankgod Obiekezie</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0b1a30;--navy2:#13294a;--teal:#12a594;--teal-d:#0b7a6e;--amber:#f2b04a;--bg:#f5f7fa;--card:#fff;--ink:#14233a;--mute:#5a6a82;--line:#dde4ee;
+--f:"Manrope",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;--m:"IBM Plex Mono",Consolas,monospace}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:5rem}
+body{font:400 1rem/1.7 var(--f);background:var(--bg);color:var(--ink)}
+a{color:var(--teal-d)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-offset:3px}
+.w{max-width:1080px;margin:0 auto;padding:0 1.5rem}
+/* nav */
+nav{position:sticky;top:0;z-index:20;background:rgba(11,26,48,.96);backdrop-filter:blur(8px)}
+nav .w{display:flex;justify-content:space-between;align-items:center;height:4rem}
+.logo{color:#fff;font-weight:800;text-decoration:none;font-size:1.1rem;letter-spacing:-.01em}
+.logo i{font-style:normal;color:var(--teal)}
+nav ul{display:flex;gap:1.8rem;list-style:none;align-items:center}
+nav ul a{color:#b4c2d6;text-decoration:none;font-size:.92rem;font-weight:500}
+nav ul a:hover{color:#fff}
+nav .cta{background:var(--teal);color:#06201c;padding:.45rem 1rem;border-radius:6px;font-weight:700}
+/* hero */
+.hero{background:radial-gradient(circle at 85% 20%,#1b3a66 0,transparent 45%),var(--navy);color:#fff;padding:5.5rem 0 0;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:48px 48px;mask-image:linear-gradient(#000,transparent 85%);pointer-events:none}
+.hero .w{position:relative;z-index:1;display:grid;grid-template-columns:1.25fr .75fr;gap:3.5rem;align-items:center}
+.eyebrow{font:500 .8rem var(--m);color:var(--teal);margin-bottom:1.2rem}
+h1{font-size:clamp(2.3rem,5.2vw,3.8rem);line-height:1.08;font-weight:800;letter-spacing:-.03em;margin-bottom:1.3rem}
+h1 span{color:var(--teal)}
+.lead{font-size:1.12rem;color:#b9c8dc;max-width:34rem;margin-bottom:2rem}
+.btns{display:flex;gap:.8rem;flex-wrap:wrap}
+.btn{display:inline-block;padding:.8rem 1.5rem;border-radius:8px;font-weight:700;text-decoration:none;font-size:.95rem;border:1.5px solid transparent;cursor:pointer;font-family:var(--f)}
+.btn.p{background:var(--teal);color:#06201c}.btn.p:hover{background:#19c0ad}
+.btn.g{border-color:#3a527a;color:#fff}.btn.g:hover{border-color:#fff}
+.photo{aspect-ratio:4/5;border-radius:18px;border:2px dashed #3a527a;background:linear-gradient(160deg,#173057,#0e203b);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.6rem;color:#8ea3c2;text-align:center;font-size:.85rem;position:relative}
+.photo svg{width:64px;height:64px;opacity:.6}
+.photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:16px}
+.badge{position:absolute;left:-1.2rem;bottom:1.5rem;background:#fff;color:var(--ink);border-radius:10px;padding:.7rem 1rem;box-shadow:0 12px 30px -10px rgba(0,0,0,.5);font-size:.8rem;line-height:1.3}
+.badge b{display:block;font-size:1.3rem;color:var(--teal-d)}
+.strip{background:var(--navy2);margin-top:4.5rem;position:relative;z-index:1}
+.strip .w{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;padding-top:1.6rem;padding-bottom:1.6rem}
+.strip b{display:block;font-size:1.7rem;font-weight:800;color:#fff;line-height:1.1}
+.strip span{font-size:.82rem;color:#9db0cc}
+/* sections */
+.sec{padding:5.5rem 0}.sec.alt{background:#fff}
+.sec h2{font-size:clamp(1.7rem,3.4vw,2.4rem);line-height:1.15;letter-spacing:-.02em;font-weight:800;margin-bottom:.7rem}
+.sub{color:var(--mute);max-width:38rem;margin-bottom:2.8rem}
+.two{display:grid;grid-template-columns:1.1fr .9fr;gap:3.5rem;align-items:start}
+.two p{color:var(--mute);margin-bottom:1rem}.two p strong{color:var(--ink)}
+.str{display:grid;gap:1rem}
+.str div{background:var(--bg);border-left:4px solid var(--teal);padding:1rem 1.2rem;border-radius:0 10px 10px 0}
+.str b{display:block;margin-bottom:.15rem}.str span{font-size:.92rem;color:var(--mute)}
+.skills{display:grid;grid-template-columns:repeat(4,1fr);gap:1.1rem}
+.sk{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:1.5rem}
+.sk h3{font-size:1.1rem;margin-bottom:.2rem}.sk .lv{font:500 .72rem var(--m);color:var(--teal-d);margin-bottom:.8rem;display:block}
+.sk ul{list-style:none;font-size:.9rem;color:var(--mute)}.sk li{padding:.2rem 0;border-top:1px solid var(--line)}
+.feat{display:grid;grid-template-columns:1.05fr .95fr;background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 20px 40px -28px rgba(11,26,48,.4)}
+.feat .ph{min-height:300px;border-radius:0;border:0;border-right:2px dashed var(--line)}
+.feat .txt{padding:2.2rem}
+.tag{display:inline-block;font:500 .72rem var(--m);background:#e3f5f2;color:var(--teal-d);padding:.2rem .6rem;border-radius:5px;margin:0 .3rem .4rem 0}
+.feat h3{font-size:1.5rem;line-height:1.25;margin:.6rem 0 .8rem;letter-spacing:-.01em}
+.feat p{color:var(--mute);margin-bottom:1.2rem}
+.k{display:flex;gap:1.5rem;margin-bottom:1.4rem}.k b{display:block;font-size:1.5rem;color:var(--teal-d);line-height:1.1}.k span{font-size:.78rem;color:var(--mute)}
+.more{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem;margin-top:1.4rem}
+.soon{border:1.5px dashed var(--line);border-radius:14px;padding:1.4rem;background:#fff}
+.soon b{display:block;margin:.4rem 0 .2rem}.soon span{font-size:.88rem;color:var(--mute)}
+.ph{background:repeating-linear-gradient(45deg,#eef2f7,#eef2f7 12px,#e6ebf2 12px,#e6ebf2 24px);border:2px dashed #b7c4d6;border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.4rem;color:var(--mute);font-size:.85rem;text-align:center;padding:1rem;position:relative}
+.ph svg{width:44px;height:44px;opacity:.55}
+.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+/* contact */
+.contact{background:var(--navy);color:#fff}
+.contact .sub{color:#9db0cc}
+.cg{display:grid;grid-template-columns:1.1fr .9fr;gap:3rem}
+form{display:grid;gap:.8rem}
+.fr{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+input,textarea{width:100%;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.18);border-radius:8px;padding:.85rem 1rem;color:#fff;font:inherit;font-size:.95rem}
+input::placeholder,textarea::placeholder{color:#8ea3c2}
+input:focus,textarea:focus{outline:2px solid var(--teal);border-color:transparent}
+textarea{min-height:130px;resize:vertical}
+.ci{display:grid;gap:1.3rem;align-content:start}.ci b{display:block;font:500 .72rem var(--m);color:var(--teal);margin-bottom:.1rem}
+.ci a{color:#dbe5f2;text-decoration:none}.ci a:hover{color:var(--teal)}
+footer{background:#07111f;color:#667b99;text-align:center;font-size:.82rem;padding:1.6rem}
+/* case study */
+.ch{background:var(--navy);color:#fff;padding:4.5rem 0 3rem}
+.back{color:#9db0cc;text-decoration:none;font-size:.9rem;display:inline-block;margin-bottom:1.6rem}.back:hover{color:#fff}
+.ch h1{font-size:clamp(2rem,4.4vw,3.1rem);max-width:46rem}
+.meta{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:2.2rem;border-top:1px solid #29406a;padding-top:1.4rem}
+.meta span{display:block;font:500 .72rem var(--m);color:var(--teal);margin-bottom:.15rem}.meta b{font-weight:600}
+.cs{display:grid;grid-template-columns:200px 1fr;gap:3.5rem;padding:3.5rem 0 5rem}
+.toc{position:sticky;top:5.5rem;align-self:start;font-size:.88rem}
+.toc a{display:block;color:var(--mute);text-decoration:none;padding:.3rem 0 .3rem .9rem;border-left:2px solid var(--line)}
+.toc a:hover{color:var(--teal-d);border-color:var(--teal)}
+.cs section{margin-bottom:3rem;max-width:44rem}
+.cs h2{font-size:1.55rem;letter-spacing:-.02em;margin-bottom:.8rem;line-height:1.2}
+.cs p,.cs li{color:var(--mute)}.cs p{margin-bottom:.8rem}
+.cs ul{padding-left:1.2rem}.cs li{margin-bottom:.45rem}.cs li strong,.cs p strong{color:var(--ink)}
+code,.cols span{font:500 .8rem var(--m);background:#e8edf4;border-radius:4px;padding:.1rem .45rem;color:var(--ink)}
+.cols{display:flex;flex-wrap:wrap;gap:.4rem;margin:.6rem 0 1rem}
+.qs{list-style:none;padding:0}.qs li{display:flex;gap:.9rem;background:#fff;border:1px solid var(--line);border-radius:10px;padding:.8rem 1rem}
+.qs b{font:500 .78rem var(--m);color:var(--teal-d);padding-top:.2rem}
+.dash{max-width:none!important}
+.dash .ph{aspect-ratio:16/9}
+.ins{display:grid;grid-template-columns:1fr 1fr;gap:1rem;max-width:none}
+.ic{background:#fff;border:1px solid var(--line);border-radius:12px;padding:1.2rem}
+.ic.hl{grid-column:1/-1;background:var(--navy);border:0}.ic.hl p{color:#c4d2e6}.ic.hl strong{color:#fff}
+.ic .n{font-size:2rem;font-weight:800;color:var(--teal-d);line-height:1;margin-bottom:.4rem}.ic.hl .n{color:var(--amber)}
+.ic p{font-size:.92rem;margin:0}
+@media(max-width:860px){.hero .w,.two,.feat,.cg,.cs{grid-template-columns:1fr}.photo{max-width:320px}.badge{left:.5rem}.strip .w,.meta{grid-template-columns:1fr 1fr}.skills{grid-template-columns:1fr 1fr}.more,.ins{grid-template-columns:1fr}.toc{display:none}.feat .ph{border-right:0;border-bottom:2px dashed var(--line)}nav ul li:not(:last-child){display:none}.hero{padding-top:3.5rem}}
+@media(max-width:480px){.skills,.fr{grid-template-columns:1fr}}
+@keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.hero .w>*{animation:up .8s ease-out both}.hero .w>*:nth-child(2){animation-delay:.15s}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;scroll-behavior:auto!important}}
+/* v2 additions */
+.rib{background:var(--navy2);overflow:hidden;white-space:nowrap;padding:1.1rem 0;margin-top:4.5rem;position:relative;z-index:1}
+.rib div{display:inline-block;animation:slide 30s linear infinite}
+.rib span{font:500 .85rem var(--m);color:#9db0cc;margin:0 1.4rem}
+.rib span::before{content:"\25C6";color:var(--teal);margin-right:1.4rem;font-size:.6rem}
+@keyframes slide{to{transform:translateX(-50%)}}
+.badge.b2{left:auto;right:-1rem;top:1.5rem;bottom:auto}
+.sv{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem}
+.sc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:1.6rem;transition:transform .25s,box-shadow .25s,border-color .25s}
+.sc:hover{transform:translateY(-4px);border-color:var(--teal);box-shadow:0 18px 30px -20px rgba(11,26,48,.45)}
+.sc i{font:500 .8rem var(--m);font-style:normal;color:var(--teal-d);background:#e3f5f2;border-radius:6px;padding:.2rem .55rem;display:inline-block;margin-bottom:.9rem}
+.sc h3{font-size:1.1rem;margin-bottom:.4rem}.sc p{font-size:.92rem;color:var(--mute)}
+.proc{display:grid;grid-template-columns:260px 1fr;gap:2rem;background:var(--navy);border-radius:18px;padding:1.6rem;color:#fff}
+.tabs{display:grid;gap:.4rem;align-content:start}
+.tabs button{text-align:left;background:transparent;border:1px solid transparent;color:#9db0cc;font:600 .95rem var(--f);padding:.8rem 1rem;border-radius:10px;cursor:pointer;display:flex;gap:.8rem}
+.tabs button span{font:500 .8rem var(--m);color:var(--teal);padding-top:.1rem}
+.tabs button:hover{color:#fff}
+.tabs button[aria-selected="true"]{background:#1a355d;border-color:#2c4a7a;color:#fff}
+.pnl{padding:1rem .8rem}.pnl[hidden]{display:none}
+.pnl h3{font-size:1.5rem;margin-bottom:.7rem;letter-spacing:-.01em}.pnl p{color:#c4d2e6;max-width:34rem;margin-bottom:1.2rem}
+.pnl .tag{background:#1a355d;color:#7be0d2}
+.tl{border-left:2px solid var(--line);margin-left:.5rem;display:grid;gap:1.6rem;max-width:46rem}
+.ti{position:relative;padding-left:1.8rem}
+.ti::before{content:"";position:absolute;left:-.55rem;top:.4rem;width:.9rem;height:.9rem;border-radius:50%;background:var(--teal);border:3px solid var(--bg)}
+.alt .ti::before{border-color:#fff}
+.ti h3{font-size:1.1rem}.ti .o{font:500 .78rem var(--m);color:var(--teal-d);display:block;margin:.1rem 0 .5rem}.ti p{color:var(--mute);font-size:.94rem}
+.flt{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.6rem}
+.flt button{background:#fff;border:1px solid var(--line);border-radius:999px;padding:.4rem 1rem;font:600 .85rem var(--f);color:var(--mute);cursor:pointer}
+.flt button[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:#fff}
+.pg{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
+.pc{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;transition:transform .25s,box-shadow .25s}
+.pc:hover{transform:translateY(-4px);box-shadow:0 20px 34px -22px rgba(11,26,48,.5)}
+.pc[hidden]{display:none}
+.pc .ph{border:0;border-bottom:2px dashed var(--line);border-radius:0;aspect-ratio:16/10}
+.pc .bd{padding:1.3rem;display:flex;flex-direction:column;flex:1}
+.pc h3{font-size:1.08rem;line-height:1.3;margin:.5rem 0}.pc p{font-size:.9rem;color:var(--mute);margin-bottom:1rem;flex:1}
+.pc a.l{font-weight:700;font-size:.9rem;text-decoration:none}.pc a.l:hover{text-decoration:underline}
+.pc.dim{background:transparent;border-style:dashed}.pc.dim .l{color:var(--mute)}
+.band{background:linear-gradient(120deg,var(--teal-d),#0f5f8a);color:#fff;padding:3.5rem 0}
+.band .w{display:flex;justify-content:space-between;align-items:center;gap:2rem;flex-wrap:wrap}
+.band h2{font-size:1.7rem;margin:0 0 .3rem}.band p{color:#d4ece8}
+.btn.wh{background:#fff;color:var(--navy)}.btn.wh:hover{background:#e8f1f6}
+.js .rv{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
+.js .rv.in{opacity:1;transform:none}
+@media(max-width:860px){.sv,.pg{grid-template-columns:1fr 1fr}.proc{grid-template-columns:1fr}.tabs{grid-template-columns:repeat(5,auto);overflow-x:auto}.tabs button{white-space:nowrap}.badge.b2{right:.5rem}nav ul li:not(:last-child){display:none}}
+@media(max-width:560px){.sv,.pg{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.js .rv{opacity:1;transform:none}}
 
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-
-    :root {
-      --navy:      #0B1F3A;
-      --navy-mid:  #132840;
-      --teal:      #0E9F8E;
-      --teal-lt:   #E8F4F2;
-      --teal-mid:  #0cc4ae;
-      --offwhite:  #F0F4F8;
-      --slate:     #8FA3B1;
-      --text:      #1A2E42;
-      --text-soft: #4A6070;
-      --border:    #D6E4EE;
-
-      --font-display: 'DM Serif Display', Georgia, serif;
-      --font-body:    'Inter', system-ui, sans-serif;
-      --font-mono:    'JetBrains Mono', 'Courier New', monospace;
-    }
-
-    body {
-      font-family: var(--font-body);
-      background: var(--offwhite);
-      color: var(--text);
-      line-height: 1.65;
-    }
-
-    /* ── NAV ── */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      background: rgba(11, 31, 58, 0.97);
-      backdrop-filter: blur(8px);
-      border-bottom: 1px solid rgba(14, 159, 142, 0.25);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 2.5rem;
-      height: 56px;
-    }
-
-    .nav-logo {
-      font-family: var(--font-display);
-      font-size: 1rem;
-      color: #fff;
-      text-decoration: none;
-    }
-    .nav-logo span { color: var(--teal); }
-
-    .nav-back {
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      color: var(--slate);
-      text-decoration: none;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      transition: color 0.2s;
-    }
-    .nav-back:hover { color: var(--teal); }
-
-    /* ── PROJECT HERO ── */
-    .project-hero {
-      background: var(--navy);
-      padding: 7rem 2.5rem 4rem;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .project-hero::after {
-      content: '';
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(14,159,142,0.4), transparent);
-    }
-
-    .hero-inner {
-      max-width: 780px;
-      margin: 0 auto;
-      position: relative;
-      z-index: 2;
-    }
-
-    .project-tags {
-      display: flex;
-      gap: 0.6rem;
-      flex-wrap: wrap;
-      margin-bottom: 1.4rem;
-    }
-
-    .tag {
-      font-family: var(--font-mono);
-      font-size: 0.62rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 0.22rem 0.65rem;
-      border-radius: 3px;
-    }
-
-    .tag-teal {
-      background: rgba(14,159,142,0.15);
-      color: var(--teal);
-      border: 1px solid rgba(14,159,142,0.3);
-    }
-
-    .tag-slate {
-      background: rgba(143,163,177,0.1);
-      color: var(--slate);
-      border: 1px solid rgba(143,163,177,0.2);
-    }
-
-    .project-hero h1 {
-      font-family: var(--font-display);
-      font-size: clamp(2rem, 5vw, 3.4rem);
-      color: #fff;
-      line-height: 1.1;
-      margin-bottom: 1.2rem;
-    }
-
-    .project-hero h1 em {
-      color: var(--teal);
-      font-style: normal;
-    }
-
-    .project-meta-strip {
-      display: flex;
-      gap: 2rem;
-      flex-wrap: wrap;
-      margin-top: 1.8rem;
-      padding-top: 1.8rem;
-      border-top: 1px solid rgba(255,255,255,0.08);
-    }
-
-    .meta-item { display: flex; flex-direction: column; gap: 0.2rem; }
-
-    .meta-label {
-      font-family: var(--font-mono);
-      font-size: 0.6rem;
-      color: var(--teal);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }
-
-    .meta-value {
-      font-size: 0.85rem;
-      color: #b8ccd8;
-    }
-
-    /* ── LINKS BAR ── */
-    .links-bar {
-      background: var(--navy-mid);
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-      padding: 0.9rem 2.5rem;
-    }
-
-    .links-inner {
-      max-width: 780px;
-      margin: 0 auto;
-      display: flex;
-      gap: 1.5rem;
-      flex-wrap: wrap;
-    }
-
-    .project-link {
-      font-family: var(--font-mono);
-      font-size: 0.68rem;
-      color: var(--slate);
-      text-decoration: none;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-      transition: color 0.2s;
-      padding: 0.3rem 0;
-    }
-
-    .project-link:hover { color: var(--teal); }
-
-    .project-link svg { flex-shrink: 0; }
-
-    /* ── MAIN CONTENT ── */
-    .content-wrap {
-      max-width: 780px;
-      margin: 0 auto;
-      padding: 3.5rem 2.5rem 5rem;
-    }
-
-    /* ── SECTION BLOCKS ── */
-    .doc-section {
-      margin-bottom: 3rem;
-    }
-
-    .section-eyebrow {
-      font-family: var(--font-mono);
-      font-size: 0.62rem;
-      color: var(--teal);
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      margin-bottom: 0.6rem;
-    }
-
-    .section-eyebrow::before {
-      content: '';
-      display: inline-block;
-      width: 16px;
-      height: 1px;
-      background: var(--teal);
-    }
-
-    .doc-section h2 {
-      font-family: var(--font-display);
-      font-size: clamp(1.3rem, 2.5vw, 1.75rem);
-      color: var(--navy);
-      margin-bottom: 1.1rem;
-      line-height: 1.2;
-    }
-
-    .doc-section p {
-      font-size: 0.94rem;
-      color: var(--text-soft);
-      line-height: 1.8;
-      margin-bottom: 0.9rem;
-      text-align: justify;
-    }
-
-    .doc-section ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    .doc-section ul li {
-      font-size: 0.91rem;
-      color: var(--text-soft);
-      line-height: 1.75;
-      padding: 0.45rem 0 0.45rem 1.1rem;
-      border-bottom: 1px solid var(--border);
-      position: relative;
-    }
-
-    .doc-section ul li:last-child { border-bottom: none; }
-
-    .doc-section ul li::before {
-      content: '›';
-      position: absolute;
-      left: 0;
-      color: var(--teal);
-      font-size: 1rem;
-      line-height: 1.75;
-    }
-
-    .doc-section ul li strong {
-      color: var(--text);
-      font-weight: 600;
-    }
-
-    code {
-      font-family: var(--font-mono);
-      font-size: 0.78rem;
-      background: var(--teal-lt);
-      color: #0a7a6c;
-      padding: 0.15rem 0.4rem;
-      border-radius: 3px;
-      border: 1px solid rgba(14,159,142,0.2);
-    }
-
-    /* ── DIVIDER ── */
-    .divider {
-      height: 1px;
-      background: var(--border);
-      margin: 2.5rem 0;
-    }
-
-    /* ── INSIGHTS GRID ── */
-    .insights-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.85rem;
-    }
-
-    .insight-card {
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: 5px;
-      padding: 1.1rem 1.3rem;
-      font-size: 0.86rem;
-      color: var(--text-soft);
-      line-height: 1.6;
-      transition: border-color 0.2s;
-    }
-
-    .insight-card:hover { border-color: rgba(14,159,142,0.35); }
-
-    /* ── QUESTIONS LIST ── */
-    .questions-list {
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
-    }
-
-    .question-item {
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: 5px;
-      padding: 0.9rem 1.2rem 0.9rem 3.5rem;
-      font-size: 0.9rem;
-      color: var(--text-soft);
-      line-height: 1.6;
-      position: relative;
-    }
-
-    .q-num {
-      position: absolute;
-      left: 1rem;
-      top: 0.9rem;
-      font-family: var(--font-mono);
-      font-size: 0.65rem;
-      color: var(--teal);
-      letter-spacing: 0.06em;
-    }
-
-    /* ── TOOLS CHIPS ── */
-    .tools-chips {
-      display: flex;
-      gap: 0.6rem;
-      flex-wrap: wrap;
-      margin-top: 0.5rem;
-    }
-
-    .tool-chip {
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      padding: 0.3rem 0.85rem;
-      border-radius: 3px;
-      background: var(--navy);
-      color: var(--teal);
-      border: 1px solid rgba(14,159,142,0.25);
-    }
-
-    /* ── CONCLUSION BOX ── */
-    .conclusion-box {
-      background: var(--navy);
-      border-radius: 6px;
-      padding: 2rem 2.2rem;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .conclusion-box::before {
-      content: '';
-      position: absolute;
-      left: 0; top: 0; bottom: 0;
-      width: 3px;
-      background: var(--teal);
-    }
-
-    .conclusion-box p {
-      color: #b8ccd8 !important;
-      font-size: 0.95rem !important;
-      line-height: 1.8 !important;
-      text-align: left !important;
-    }
-
-    /* ── LIMITATIONS ── */
-    .limitations-list li {
-      background: #fff8f0;
-      border-color: #f0dfc5 !important;
-    }
-
-    .limitations-list li::before { color: #c08040 !important; }
-
-    /* ── NOTE ── */
-    .note-box {
-      background: var(--teal-lt);
-      border: 1px solid rgba(14,159,142,0.25);
-      border-radius: 5px;
-      padding: 0.9rem 1.2rem;
-      font-size: 0.84rem;
-      color: #0a7a6c;
-      font-style: italic;
-      line-height: 1.6;
-    }
-
-    /* ── DATASET COLUMNS ── */
-    .columns-wrap {
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: 5px;
-      padding: 1.1rem 1.3rem;
-      margin-top: 0.8rem;
-    }
-
-    .columns-label {
-      font-family: var(--font-mono);
-      font-size: 0.6rem;
-      color: var(--slate);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      margin-bottom: 0.7rem;
-    }
-
-    .columns-flow {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-    }
-
-    /* ── FOOTER ── */
-    footer {
-      background: var(--navy);
-      padding: 1.8rem 2.5rem;
-      text-align: center;
-    }
-
-    .footer-text {
-      font-family: var(--font-mono);
-      font-size: 0.65rem;
-      color: #3d5468;
-      letter-spacing: 0.08em;
-    }
-
-    .footer-text a { color: #4a6a82; text-decoration: none; }
-
-    /* ── FADE IN ── */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(16px);
-      transition: opacity 0.55s ease, transform 0.55s ease;
-    }
-    .fade-in.visible { opacity: 1; transform: none; }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 640px) {
-      nav { padding: 0 1.25rem; }
-      .project-hero, .links-bar { padding-left: 1.25rem; padding-right: 1.25rem; }
-      .content-wrap { padding: 2.5rem 1.25rem 4rem; }
-      .insights-grid { grid-template-columns: 1fr; }
-      .project-meta-strip { gap: 1.2rem; }
-    }
-  </style>
+.shot{margin:1.4rem 0 0}
+.shot a{display:block;border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:0 24px 44px -26px rgba(11,26,48,.5);background:#fff}
+.shot img{display:block;width:100%;height:auto}
+.shot figcaption{font-size:.84rem;color:var(--mute);margin-top:.6rem;text-align:center}
+</style>
 </head>
-
 <body>
+<nav><div class="w"><a class="logo" href="../index.html">Tk</a>
+<ul><li><a href="../index.html#projects">All projects</a></li><li><a class="cta" href="../index.html#contact">Contact</a></li></ul></div></nav>
 
-  <!-- NAV -->
-  <nav>
-    <a href="../index.html" class="nav-logo">Tk</a>
-    <a href="../index.html#projects" class="nav-back">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
-      All Projects
-    </a>
-  </nav>
+<header class="ch"><div class="w">
+ <a class="back" href="../index.html#projects">&larr; Back to projects</a><br>
+ <span class="tag">SQL</span><span class="tag">Power BI</span><span class="tag">DAX</span>
+ <h1>Employee Mental Health and Productivity Analysis</h1>
+ <div class="meta">
+  <div><span>Dataset</span><b>5,868 employees, 15 columns</b></div>
+  <div><span>Tools</span><b>SQL, Power BI, DAX</b></div>
+  <div><span>Type</span><b>Cross-sectional survey</b></div>
+  <div><span>Source</span><b>Kaggle, February 2026</b></div>
+ </div>
+</div></header>
 
-  <!-- PROJECT HERO -->
-  <div class="project-hero">
-    <div class="hero-inner">
-      <div class="project-tags">
-        <span class="tag tag-teal">SQL · Analytics</span>
-        <span class="tag tag-teal">Power BI</span>
-        <span class="tag tag-slate">Workplace Health</span>
-        <span class="tag tag-slate">February 2026</span>
-      </div>
-      <h1>Employee Mental Health<br>&amp; <em>Productivity</em> Analysis</h1>
-      <div class="project-meta-strip">
-        <div class="meta-item">
-          <span class="meta-label">Dataset</span>
-          <span class="meta-value">5,868 employees · 15 columns</span>
-        </div>
-        <div class="meta-item">
-          <span class="meta-label">Tools</span>
-          <span class="meta-value">SQL · Power BI · DAX</span>
-        </div>
-        <div class="meta-item">
-          <span class="meta-label">Type</span>
-          <span class="meta-value">Cross-sectional survey analysis</span>
-        </div>
-        <div class="meta-item">
-          <span class="meta-label">Source</span>
-          <span class="meta-value">Kaggle</span>
-        </div>
-      </div>
-    </div>
-  </div>
+<div class="w cs">
+ <aside class="toc"><a href="#problem">Business problem</a><a href="#data">Dataset</a><a href="#prep">Cleaning</a><a href="#model">Modelling and DAX</a><a href="#questions">Questions</a><a href="#dash">Dashboard</a><a href="#insights">Insights</a><a href="#recs">Recommendations</a><a href="#limits">Limitations</a></aside>
+ <main>
+  <section id="problem"><h2>Business problem</h2>
+   <p>Organisations struggle to see how mental health affects productivity. This project set out to:</p>
+   <ul><li>Assess the relationship between mental health risk, specific conditions and productivity.</li><li>Evaluate the effect of lifestyle, social factors and treatment-seeking among at-risk employees.</li><li>Compare productivity and risk across gender and work environments.</li></ul></section>
 
-  <!-- MAIN CONTENT -->
-  <div class="content-wrap">
+  <section id="data"><h2>Dataset overview</h2>
+   <p>A single cross-sectional employee survey from Kaggle with <strong>5,868 employees</strong> and <strong>15 columns</strong>.</p>
+   <div class="cols"><span>age</span><span>gender</span><span>employment_status</span><span>work_environment</span><span>mental_health_history</span><span>seeks_treatment</span><span>stress_level</span><span>sleep_hours</span><span>physical_activity_days</span><span>depression_score</span><span>productivity_score</span><span>mental_health_risk</span><span>social_support_score</span></div>
+   <p><strong>SQL</strong> handled cleaning, feature engineering and exploratory analysis. <strong>Power BI</strong> handled visualisation and the interactive dashboard.</p></section>
 
-    <!-- Objective -->
-    <div class="doc-section fade-in">
-      <div class="section-eyebrow">01</div>
-      <h2>Business Problem & Objective</h2>
-      <p>Many organizations face challenges in understanding how mental health impacts employee productivity. This project aims to:</p>
-      <ul>
-        <li>Assess the relationship between mental health risk levels, specific conditions, and employee productivity.</li>
-        <li>Evaluate the impact of lifestyle, social factors, and treatment-seeking on productivity among at-risk employees.</li>
-        <li>Analyze differences in productivity and mental health risk across gender and work environments.</li>
-      </ul>
-    </div>
+  <section id="prep"><h2>Data cleaning and preparation</h2>
+   <ul><li>Removed non-employed statuses (<code>Student</code>, <code>Self-employed</code>, <code>Unemployed</code>).</li><li>Rounded <code>sleep_hours</code> and <code>productivity_score</code> to whole numbers.</li><li>Converted Yes/No fields in <code>mental_health_history</code> and <code>seeks_treatment</code> to binary (1/0).</li><li>Checked for nulls, blanks and duplicates. None were found.</li><li>Standardised categorical formatting across gender, work environment and risk level.</li></ul></section>
 
-    <div class="divider"></div>
+  <section id="model"><h2>Data modelling and DAX</h2>
+   <ul><li>Created calculated columns segmenting medium and high-risk employees as <strong>Affected</strong> (productivity below 70) or <strong>Not Affected</strong> (70 and above). Low-risk employees were marked N/A and excluded from focused visuals.</li><li>Built dynamic measures for employee counts and productivity statistics.</li><li>Implemented <strong>Pearson correlation manually in DAX</strong> (covariance divided by the standard deviations).</li><li>Built supporting dimension tables to structure the correlation visuals.</li></ul></section>
 
-    <!-- Dataset -->
-    <div class="doc-section fade-in">
-      <div class="section-eyebrow">02</div>
-      <h2>Dataset Overview</h2>
-      <ul>
-        <li><strong>Data source:</strong> Internal employee mental health and productivity survey from Kaggle</li>
-        <li><strong>Number of rows & columns:</strong> 5,868 employees; 15 columns</li>
-        <li><strong>Time period:</strong> Single cross-sectional survey</li>
-      </ul>
-      <div class="columns-wrap">
-        <div class="columns-label">// key columns</div>
-        <div class="columns-flow">
-          <code>age</code><code>gender</code><code>employment_status</code><code>work_environment</code>
-          <code>mental_health_history</code><code>seeks_treatment</code><code>stress_level</code>
-          <code>sleep_hours</code><code>physical_activity_days</code><code>depression_score</code>
-          <code>productivity_score</code><code>mental_health_risk</code><code>social_support_score</code>
-        </div>
-      </div>
-    </div>
+  <section id="questions"><h2>Key questions</h2>
+   <ul class="qs">
+    <li><b>Q1</b>How is mental health risk level associated with productivity?</li>
+    <li><b>Q2</b>Among underperforming at-risk employees, do lifestyle and social factors relate to productivity?</li>
+    <li><b>Q3</b>Do at-risk employees who seek treatment show different productivity patterns?</li>
+    <li><b>Q4</b>Which condition (stress, anxiety, depression) has the strongest association with productivity?</li>
+    <li><b>Q5</b>Do productivity or risk levels differ across remote, hybrid and on-site work?</li>
+    <li><b>Q6</b>Are there gender differences in risk levels and productivity?</li>
+    <li><b>Q7</b>Does a history of mental health conditions relate to risk or productivity?</li>
+   </ul></section>
 
-    <div class="divider"></div>
+  <section id="dash" class="dash"><h2>Dashboard</h2>
+   <figure class="shot"><a href="../images/mental_health_analysis_dashboard.jpg" target="_blank" rel="noopener" aria-label="Open the full-size dashboard screenshot"><img src="../images/mental_health_analysis_dashboard.jpg" alt="Power BI dashboard titled Employee Mental Health and Productivity Analysis, showing risk-level KPI cards, correlation charts for conditions and lifestyle factors, treatment status productivity, and mental health history tables" loading="lazy"></a><figcaption>The Power BI dashboard. Click the image to view it full size.</figcaption></figure>
+   <div class="btns" style="margin-top:1rem">
+    <a class="btn p" href="https://github.com/thankgod-obiekezie/employee-mental-health-analysis/blob/main/mental_health.sql" target="_blank" rel="noopener">View SQL script</a>
+    <a class="btn p" href="https://github.com/thankgod-obiekezie/employee-mental-health-analysis-dashboard" target="_blank" rel="noopener">Dashboard repository</a>
+   </div></section>
 
-    <!-- Tools -->
-    <div class="doc-section fade-in">
-      <div class="section-eyebrow">03</div>
-      <h2>Tools Used</h2>
-      <div class="tools-chips">
-        <span class="tool-chip">SQL</span>
-        <span class="tool-chip">Power BI</span>
-        <span class="tool-chip">DAX</span>
-      </div>
-      <ul style="margin-top: 1rem;">
-        <li><strong>SQL</strong> — data cleaning, feature engineering, and exploratory data analysis</li>
-        <li><strong>Power BI</strong> — visualization and interactive dashboard development</li>
-      </ul>
-    </div>
+  <section id="insights" class="dash"><h2>Key insights</h2>
+   <div class="ins">
+    <div class="ic hl"><div class="n">Depression</div><p><strong>The strongest factor linked to lower productivity.</strong> Higher depression scores correlated with lower productivity, while anxiety and stress showed no meaningful association.</p></div>
+    <div class="ic"><div class="n">33%</div><p>of medium and high-risk employees scored below the productivity threshold (70). 50% scored 70 or above.</p></div>
+    <div class="ic"><div class="n">40%</div><p>of at-risk employees sought treatment, with no substantial difference in productivity scores.</p></div>
+    <div class="ic"><p>Sleep, physical activity days and social support showed little to no impact on productivity among at-risk employees.</p></div>
+    <div class="ic"><p>Productivity was similar across remote, hybrid and on-site staff, but on-site employees were overrepresented in risk categories.</p></div>
+    <div class="ic"><p>Productivity was comparable across genders, and gender differences in risk were minimal.</p></div>
+    <div class="ic"><p>Employees with prior mental health conditions did not differ significantly in productivity or risk.</p></div>
+   </div></section>
 
-    <div class="divider"></div>
+  <section id="recs"><h2>Recommendations</h2>
+   <ul><li>Prioritise interventions for employees with high depression scores.</li><li>Introduce proactive monitoring for on-site employees.</li><li>Favour holistic support programmes over lifestyle-only interventions.</li><li>Encourage treatment-seeking without assuming immediate productivity gains.</li><li>Use this analysis as a baseline for longitudinal tracking of programme impact.</li></ul>
+   <p style="margin-top:1rem"><strong>Conclusion:</strong> depression is the primary factor associated with productivity decline. Lifestyle factors and treatment-seeking showed limited association, so support is best targeted at employees with elevated depression scores and on-site arrangements.</p></section>
 
-    <!-- Data Cleaning -->
-    <div class="doc-section fade-in">
-      <div class="section-eyebrow">04</div>
-      <h2>Data Cleaning & Preparation</h2>
-      <ul>
-        <li>Removed employees with non-employed statuses (<code>Student</code>, <code>Self-employed</code>, <code>Unemployed</code>).</li>
-        <li>Rounded <code>sleep_hours</code> and <code>productivity_score</code> to whole numbers.</li>
-        <li>Converted <code>Yes</code>/<code>No</code> responses in <code>mental_health_history</code> and <code>seeks_treatment</code> to binary (1/0).</li>
-        <li>Checked for null, blank, or duplicate entries; none were found.</li>
-        <li>Ensured consistent formatting of categorical variables (<code>gender</code>, <code>work_environment</code>, <code>mental_health_risk</code>).</li>
-      </ul>
-    </div>
-
-    <div class="divider"></div>
-
-    <!-- Data Modeling -->
-    <div class="doc-section fade-in">
-      <div class="section-eyebrow">05</div>
-      <h2>Data Modeling & DAX</h2>
-      <ul>
-        <li>Created calculated columns for treatment status and productivity status — segmenting medium/high-risk employees with productivity score (&lt;70) into <strong>Affected</strong>, and <strong>Not Affected</strong> (≥70), while low-risk employees were classified as N/A and excluded from focused visuals.</li>
-        <li>Built dynamic measures for employee counts and productivity score statistics.</li>
-        <li>Implemented Pearson correlation manually in DAX (covariance ÷ standard deviations) to assess relationships between mental health factors, conditions and productivity.</li>
-        <li>Developed supporting dimension tables to structure correlation visuals.</li>
-      </ul>
-    </div>
-
-    <div class="divider"></div>
-
-    <!-- Key Questions -->
-    <div class="doc-section fade-in">
-      <div class="section-eyebrow">06</div>
-      <h2>Key Questions & Analysis</h2>
-      <div class="questions-list">
-        <div class="question-item"><span class="q-num">Q1</span>How is mental health risk level associated with productivity?</div>
-        <div class="question-item"><span class="q-num">Q2</span>Among at-risk employees who are already underperforming, are lifestyle and social factors associated with differences in productivity?</div>
-        <div class="question-item"><span class="q-num">Q3</span>Do at-risk employees who report seeking treatment show different productivity patterns compared to those who do not?</div>
-        <div class="question-item"><span class="q-num">Q4</span>Which reported condition (stress, anxiety, depression) has the strongest association with productivity?</div>
-        <div class="question-item"><span class="q-num">Q5</span>Is work environment (remote, hybrid, on-site) associated with differences in productivity or mental health risk levels?</div>
-        <div class="question-item"><span class="q-num">Q6</span>Are there gender differences in mental health risk levels and productivity scores among employees?</div>
-        <div class="question-item"><span class="q-num">Q7</span>Do employees with a history of mental health conditions show different mental health risk levels or productivity scores compared to those without a history?</div>
-      </div>
-    </div>
-
-    <div class="divider"></div>
-
-    <!-- Dashboard -->
-    <div class="doc-section fade-in">
-      <div class="section-eyebrow">07</div>
-      <h2>Visualization Dashboard / SQL Script</h2>
-      <ul>
-        <li><strong>KPI Summary Cards:</strong> Total employees and risk-level breakdown counts (High, Medium, Low).</li>
-        <li><strong>Risk vs Productivity:</strong> Stacked column comparing Affected vs Not Affected across mental health risk.</li>
-        <li><strong>Correlation Analysis:</strong> Pearson correlations of stress, anxiety, and depression with productivity.</li>
-        <li><strong>Treatment-Seeking Impact:</strong> Productivity comparison between employees who sought treatment vs those who didn't.</li>
-        <li><strong>Correlation Analysis:</strong> Pearson correlations of sleep, social support, and physical activity days with productivity.</li>
-        <li><strong>Mental Health History Matrices:</strong> Productivity stats and current risk distribution by mental health history.</li>
-        <li><strong>Interactive Slicers:</strong> Filters for gender and work environment across all visuals.</li>
-      </ul>
-      <div class="note-box" style="margin-top: 1rem;">
-        Purpose: Provides HR and management teams with a quick overview of mental health risk, productivity, and areas for targeted interventions.
-      </div>
-    </div>
-    
-    <!-- LINKS BAR -->
-    <div class="links-bar">
-      <div class="links-inner">
-        <a href="https://github.com/thankgod-obiekezie/employee-mental-health-analysis/blob/main/mental_health.sql" target="_blank" class="project-link">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
-          SQL Script
-        </a>
-        <a href="https://github.com/thankgod-obiekezie/employee-mental-health-analysis-dashboard" target="_blank" class="project-link">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-          Interactive Power BI Report
-        </a>
-        <a href="https://github.com/thankgod-obiekezie/employee-mental-health-analysis-dashboard/blob/main/mental%20health%20analysis%20dashboard_page.jpg" target="_blank" class="project-link">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-          Dashboard Screenshot
-        </a>
-      </div>
-    </div>
-
-    <div class="divider"></div>
-
-    <!-- Key Insights -->
-    <div class="doc-section fade-in">
-      <div class="section-eyebrow">08</div>
-      <h2>Key Insights</h2>
-      <div class="insights-grid">
-        <div class="insight-card">33% of medium/high-risk employees scored below the productivity threshold (&lt;70); 50% scored ≥70.</div>
-        <div class="insight-card">Sleep, physical activity days, and social support showed little to no impact on productivity among at-risk employees.</div>
-        <div class="insight-card">40% of at-risk employees sought treatment; no substantial difference in productivity scores was observed.</div>
-        <div class="insight-card">Higher depression scores correlated with lower productivity; anxiety and stress levels showed no meaningful association.</div>
-        <div class="insight-card">Productivity scores were similar across remote, hybrid, and on-site employees. On-site employees were overrepresented in risk categories.</div>
-        <div class="insight-card">Productivity scores were comparable across genders; gender differences in risk were minimal.</div>
-        <div class="insight-card" style="grid-column: span 2;">Employees with prior mental health conditions did not differ significantly in productivity or risk levels compared to those without.</div>
-      </div>
-    </div>
-
-    <div class="divider"></div>
-
-    <!-- Recommendations -->
-    <div class="doc-section fade-in">
-      <div class="section-eyebrow">09</div>
-      <h2>Recommendations</h2>
-      <ul>
-        <li>Prioritize interventions targeting employees with high depression scores.</li>
-        <li>Implement proactive mental health monitoring for on-site employees.</li>
-        <li>Consider holistic support programs rather than relying solely on lifestyle interventions.</li>
-        <li>Encourage treatment-seeking without assuming immediate productivity gains.</li>
-        <li>Use this analysis as a baseline for longitudinal tracking to measure impact of mental health programs.</li>
-      </ul>
-    </div>
-
-    <div class="divider"></div>
-
-    <!-- Conclusion -->
-    <div class="doc-section fade-in">
-      <div class="section-eyebrow">10</div>
-      <h2>Conclusion</h2>
-      <div class="conclusion-box">
-        <p>This analysis identified that depression is the primary mental health factor associated with productivity decline. Lifestyle factors and treatment-seeking behavior showed limited association. The insights enable data-driven decisions to target support for at-risk employees, particularly those with elevated depression scores and on-site work arrangements.</p>
-      </div>
-    </div>
-
-    <div class="divider"></div>
-
-    <!-- Limitations -->
-    <div class="doc-section fade-in">
-      <div class="section-eyebrow">11</div>
-      <h2>Limitations</h2>
-      <ul class="limitations-list">
-        <li>Cross-sectional data; cannot infer causality.</li>
-        <li>Lack of time-sequenced data to track changes in productivity following lifestyle changes or treatment.</li>
-        <li>Dataset does not include additional factors like workload, managerial support, or personal stressors that may affect productivity.</li>
-      </ul>
-    </div>
-
-  </div>
-
-  <!-- FOOTER -->
-  <footer>
-    <p class="footer-text">
-      Thankgod Obiekezie &nbsp;·&nbsp; Health Data Scientist &nbsp;·&nbsp; <a href="../index.html">Back to portfolio</a>
-    </p>
-  </footer>
-
-  <script>
-    const faders = document.querySelectorAll('.fade-in');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-    }, { threshold: 0.08 });
-    faders.forEach(f => observer.observe(f));
-  </script>
-
+  <section id="limits"><h2>Limitations</h2>
+   <ul><li>Cross-sectional data cannot establish causality.</li><li>No time-sequenced data to track changes after lifestyle changes or treatment.</li><li>No data on workload, managerial support or personal stressors.</li></ul></section>
+ </main>
+</div>
+<footer>Thankgod Obiekezie &middot; Data Analyst &middot; <a style="color:#8ea3c2" href="../index.html">Back to portfolio</a></footer>
 </body>
 </html>
